@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import AuthContext from '../store/authContext';
 import AuthRouting from './AuthRouting';
 import NonAuthRouting from './NonAuthRouting';
 
 function Routing() {
-  const [isAuth] = useState(true);
+  const authCtx = useContext(AuthContext);
 
-  return <>{isAuth ? <AuthRouting /> : <NonAuthRouting />}</>;
+  return <>{authCtx.isLoggedIn ? <AuthRouting /> : <NonAuthRouting />}</>;
 }
 
 export default Routing;
