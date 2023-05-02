@@ -1,12 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routing from './routing';
 
-import styles from './App.module.scss';
+// import styles from './App.module.scss';
 
 function App() {
   return (
-    <div className={styles['block']}>
-      <h1 className={styles['title']}>Graphiql App</h1>
-    </div>
+    <BrowserRouter>
+      <Routing />
+    </BrowserRouter>
   );
 }
 
