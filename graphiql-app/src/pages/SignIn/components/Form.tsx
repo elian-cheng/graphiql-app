@@ -43,6 +43,10 @@ const Form: React.FC = () => {
     password: yup
       .string()
       .min(8, 'Password is too short - should be 8 chars minimum.')
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
       .required('No password provided.'),
   });
 
