@@ -8,7 +8,7 @@ function NonAuthRouting() {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route path="/" element={<NonAuthLayout />}>
-          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/" element={<Welcome />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
         </Route>
