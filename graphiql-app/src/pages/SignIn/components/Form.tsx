@@ -1,14 +1,32 @@
-import React, { useState, useContext, useRef } from 'react';
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../../store/authContext';
-import classes from './Form.module.scss';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { LockOutlined } from '@mui/icons-material';
+
+interface IFormData {
+  email: string;
+  password: string;
+  showPassword: boolean;
+}
 
 const API_KEY = 'AIzaSyAysgr5Plp1IojvpjX_GR_h_rRMZ2_Q41Q';
 
 const Form: React.FC = () => {
   const navigate = useNavigate();
-  const emailInputRef = useRef<HTMLInputElement>(null);
-  const passwordInputRef = useRef<HTMLInputElement>(null);
   const authCtx = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -17,11 +35,29 @@ const Form: React.FC = () => {
     setIsLogin((prevState) => !prevState);
   };
 
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const enteredEmail = emailInputRef.current!.value;
-    const enteredPassword = passwordInputRef.current!.value;
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .email('Email should have correct format')
+      .required('Email is a required field'),
+    password: yup
+      .string()
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('No password provided.'),
+  });
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormData>({
+    mode: 'onBlur',
+    resolver: yupResolver(schema),
+    shouldUseNativeValidation: false,
+  });
+
+  const onSubmit: SubmitHandler<IFormData> = async (data) => {
     setIsLoading(true);
     let url: string;
 
@@ -33,8 +69,8 @@ const Form: React.FC = () => {
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
+        email: data.email,
+        password: data.password,
         returnSecureToken: true,
       }),
       headers: {
@@ -65,27 +101,87 @@ const Form: React.FC = () => {
       });
   };
 
+  const showPassword = watch('showPassword');
+
   return (
-    <section className={classes.auth}>
-      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-      <form onSubmit={submitHandler}>
-        <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
-          <input type="email" id="email" ref={emailInputRef} required />
-        </div>
-        <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
-          <input type="password" id="password" ref={passwordInputRef} required />
-        </div>
-        <div className={classes.actions}>
-          {!isLoading && <button>{isLogin ? 'Login' : 'Create Account'}</button>}
-          {isLoading && <p>Sending request...</p>}
-          <button type="button" className={classes.toggle} onClick={switchAuthModeHandler}>
-            {isLogin ? 'Create new account' : 'Login with existing account'}
-          </button>
-        </div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        m: '3rem auto',
+        p: '1rem',
+        borderRadius: '6px',
+        width: '95%',
+        maxWidth: '35rem',
+        boxShadow: ' 0 1px 4px rgba(0, 0, 0, 0.2)',
+      }}
+    >
+      <Avatar sx={{ color: 'white', backgroundColor: '#172e4a' }}>
+        <LockOutlined />
+      </Avatar>
+      <Typography component="h2" variant="h4" sx={{ my: '.5rem' }}>
+        {isLogin ? 'Login' : 'Registration'}
+      </Typography>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          {...register('email')}
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          error={!!errors.email}
+          helperText={errors?.email?.message}
+        />
+        <TextField
+          {...register('password')}
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          id="password"
+          autoComplete="current-password"
+          error={!!errors.password}
+          helperText={errors?.password?.message}
+        />
+
+        <FormControlLabel
+          control={<Checkbox {...register('showPassword')} color="primary" />}
+          label="Show password"
+          sx={{ my: '1rem' }}
+        />
+
+        {!isLoading && (
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ color: 'white', backgroundColor: '#172e4a', py: '.8rem' }}
+          >
+            {isLogin ? 'Sign In' : 'Sign Up'}
+          </Button>
+        )}
+
+        {isLoading && <p>Sending request...</p>}
+
+        <Grid container sx={{ mt: '1rem' }}>
+          <Grid item>
+            <Link href="#" variant="body2" onClick={switchAuthModeHandler}>
+              {isLogin ? "Don't have an account? Sign Up" : 'Do you have an account? Sign In'}
+            </Link>
+          </Grid>
+        </Grid>
       </form>
-    </section>
+    </Box>
   );
 };
 
