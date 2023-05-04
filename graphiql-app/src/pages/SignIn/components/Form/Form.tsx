@@ -9,9 +9,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../../store/authContext';
+import { useAuth } from '../../../../contexts';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -27,7 +27,7 @@ const API_KEY = 'AIzaSyAysgr5Plp1IojvpjX_GR_h_rRMZ2_Q41Q';
 
 const Form: React.FC = () => {
   const navigate = useNavigate();
-  const authCtx = useContext(AuthContext);
+  const authCtx = useAuth();
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
