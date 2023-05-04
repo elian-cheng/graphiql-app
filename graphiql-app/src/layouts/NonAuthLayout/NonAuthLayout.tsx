@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import NonAuthHeader from '../../components/NonAuthHeader/NonAuthHeader';
+import { NonAuthHeader } from '../../components';
 
 import styles from './NonAuthLayout.module.scss';
 
