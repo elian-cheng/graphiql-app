@@ -28,9 +28,11 @@
   padding: 0 25px;
   width: 100%;
   max-width: 700px;
+  flex-wrap: wrap;
 }
 
 .avatar-item {
+  margin: 0 auto;
   list-style: none;
 }
 
@@ -50,4 +52,17 @@
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 775px) {
+  .section {
+    .text-content {
+      margin: 0 auto;
+    }
+  }
+  
+  .project-logo,
+  .course-logo {
+    display: none;
+  }
 }
