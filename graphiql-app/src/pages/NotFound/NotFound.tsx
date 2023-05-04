@@ -1,14 +1,25 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
+
+import styles from './NotFound.module.scss';
 
 function NotFound() {
   return (
-    <div>
-      <h1>NotFound</h1>
-      <NavLink to="/welcome">
-        <Button variant="contained">To Welcome</Button>
-      </NavLink>
+    <div className={styles['not-found']}>
+      <div className={styles['back']}></div>
+      <Container className={styles['container']}>
+        <div className={styles['rocket']}></div>
+        <div className={styles['content']}>
+          <Typography variant="h2">404</Typography>
+          <Typography variant="h3" align="center">
+            Page not found
+          </Typography>
+          <NavLink className={styles['button']} to="/">
+            <Button variant="contained">To Main Page</Button>
+          </NavLink>
+        </div>
+      </Container>
     </div>
   );
 }

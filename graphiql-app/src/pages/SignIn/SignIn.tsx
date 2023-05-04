@@ -1,12 +1,13 @@
 import React from 'react';
+import { Container } from '@mui/material';
 import { Form } from './components';
 
 function SignIn() {
   return (
-    <div>
+    <Container>
       <h1>SignIn</h1>
       <Form />
-    </div>
+    </Container>
   );
 }
 
