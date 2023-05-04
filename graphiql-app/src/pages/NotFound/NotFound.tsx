@@ -12,7 +12,9 @@ function NotFound() {
         <div className={styles['rocket']}></div>
         <div className={styles['content']}>
           <Typography variant="h2">404</Typography>
-          <Typography variant="h3">Page not found</Typography>
+          <Typography variant="h3" align="center">
+            Page not found
+          </Typography>
           <NavLink className={styles['button']} to="/">
             <Button variant="contained">To Main Page</Button>
           </NavLink>

@@ -44,3 +44,16 @@
 .button {
   margin-top: 20px;
 }
+
+@media screen and (max-width: 750px) {
+  .rocket {
+    display: none;
+  }
+
+  .content {
+    width: 80%;
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
