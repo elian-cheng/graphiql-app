@@ -1,17 +1,16 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Container } from '@mui/material';
+import AuthHeader from '../../components/AuthHeader/AuthHeader';
 
 import styles from './AuthLayout.module.scss';
-import AuthHeader from '../../components/AuthHeader/AuthHeader';
 
 function AuthLayout() {
   return (
     <>
       <AuthHeader />
-      <Container className={styles['container']}>
+      <div className={styles['container']}>
         <Outlet />
-      </Container>
+      </div>
     </>
   );
 }
