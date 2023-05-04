@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, createContext } from 'react';
+import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
 
 let logoutTimer: ReturnType<typeof setTimeout>;
 
@@ -9,7 +9,7 @@ interface IAuthContext {
   logout: () => void;
 }
 
-const AuthContext = createContext<IAuthContext>({
+export const AuthContext = createContext<IAuthContext>({
   token: null,
   isLoggedIn: false,
   login: () => {},
@@ -47,7 +47,7 @@ const retrieveStoredToken = (): { token: string | null; duration: number } | nul
   };
 };
 
-export const AuthContextProvider = (props: { children: React.ReactNode }) => {
+export const AuthProvider = (props: { children: React.ReactNode }) => {
   const tokenData = retrieveStoredToken();
 
   let initialToken: string | null = null;
@@ -98,4 +98,6 @@ export const AuthContextProvider = (props: { children: React.ReactNode }) => {
   return <AuthContext.Provider value={contextValue}>{props.children}</AuthContext.Provider>;
 };
 
-export default AuthContext;
+export function useAuth() {
+  return useContext(AuthContext);
+}
