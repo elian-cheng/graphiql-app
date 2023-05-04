@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../store/authContext';
+import { Header } from '../Header/Header';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import classes from './AuthHeader.module.scss';
 
@@ -11,24 +13,11 @@ const AuthHeader = () => {
   };
 
   return (
-    <header className={classes.header}>
-      <Link to="/">
-        <div className={classes.logo}>GraphiQL</div>
+    <Header>
+      <Link to="/sign-in">
+        <LogoutIcon color="inherit" />
       </Link>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Go to Main Page</Link>
-          </li>
-          <li>
-            <Link to="/graphiql">GraphiQL</Link>
-          </li>
-          <li>
-            <button onClick={logoutHandler}>Logout</button>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    </Header>
   );
 };
 

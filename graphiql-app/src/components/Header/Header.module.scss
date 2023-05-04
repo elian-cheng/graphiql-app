@@ -1,0 +1,58 @@
+@import url('../../index.scss');
+
+.header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  background-color: var(--color-blue-dark);
+}
+
+.container {
+  padding: 8px 30px;
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-cyan);
+}
+
+.header li svg {
+  flex-shrink: 0;
+  margin-left: 5px;
+  fill: currentColor;
+}
+
+.header.header__sticky {
+  position: fixed;
+  background-color: rgba($color: #fff, $alpha: 0.1);
+  box-shadow: 0 2px 16px rgba(133, 133, 133, 0.1);
+  backdrop-filter: blur(10px);
+  animation: slideDown 0.35s ease-out;
+}
+
+.header.header__sticky .logo {
+  max-width: 80%;
+  color: var(--color-blue-dark);
+}
+.header.header__sticky nav {
+  color: var(--color-blue-dark);
+}
+
+.header.header__sticky li {
+  font-size: 14px;
+  padding: 7px 10px;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

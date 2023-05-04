@@ -1,24 +1,22 @@
 import { Link } from 'react-router-dom';
+import { Header } from '../Header/Header';
 
-import classes from './NonAuthHeader.module.scss';
+import { Button } from '@mui/material';
 
 const NonAuthHeader = () => {
   return (
-    <header className={classes.header}>
-      <Link to="/">
-        <div className={classes.logo}>GraphiQL</div>
+    <Header>
+      <Link to="/sign-in">
+        <Button variant="text" size="small" color="inherit">
+          Log In
+        </Button>
       </Link>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/sign-in">Sign In</Link>
-          </li>
-          <li>
-            <Link to="/sign-in">Sign Up</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
+      <Link to="/sign-in">
+        <Button variant="outlined" size="small" color="inherit">
+          Sign Up
+        </Button>
+      </Link>
+    </Header>
   );
 };
 
