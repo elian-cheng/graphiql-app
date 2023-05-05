@@ -14,7 +14,14 @@ const NonAuthHeader = () => {
           Log In
         </Button>
       </Link>
-      <Button href="#" variant="outlined" size="small" color="inherit" onClick={() => signUp(true)}>
+      <Button
+        href="#"
+        variant="outlined"
+        size="small"
+        color="inherit"
+        onClick={() => signUp(true)}
+        sx={{ marginLeft: '15px' }}
+      >
         Sign Up
       </Button>
     </Header>
