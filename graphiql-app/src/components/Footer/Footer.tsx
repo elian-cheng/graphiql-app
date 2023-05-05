@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, BottomNavigation, Divider } from '@mui/material';
+import { Typography, BottomNavigation } from '@mui/material';
 import rs from '../../assets/svg/course.svg';
 import classes from './Footer.module.scss';
 import Box from '@mui/material/Box';
@@ -27,6 +27,7 @@ function Footer() {
             justifyContent: 'flex-end',
             alignItems: 'flex-start',
           }}
+          className={classes['team-members-wrap']}
         >
           {' '}
           <Box sx={{ display: 'flex', width: '100%' }}>
@@ -36,11 +37,9 @@ function Footer() {
             >
               The Team
             </Typography>
-            <Box
-              sx={{ width: 'inherit', borderBottom: '1px black solid', marginBottom: '5px' }}
-            ></Box>
+            <Box className={classes.line}></Box>
           </Box>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex' }} className={classes['team-wrap']}>
             <Member name={'Anubic29'} link={'https://github.com/Anubic29'} />
             <Member name={'Elian-cheng'} link={'https://github.com/Elian-cheng'} />
             <Member name={'Elenadatso'} link={'https://github.com/ElenaDatso'} />
@@ -50,6 +49,7 @@ function Footer() {
               marginTop="auto"
               marginLeft="30px"
               paddingBottom="3px"
+              className={classes.year}
             >
               2023©
             </Typography>

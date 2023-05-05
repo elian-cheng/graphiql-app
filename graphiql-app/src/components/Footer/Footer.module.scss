@@ -70,3 +70,34 @@
     transform: translateY(0);
   }
 }
+
+.line {
+  width: inherit;
+  border-bottom: 1px black solid;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 850px) {
+  .logo-link {
+    display: none;
+}
+  .year {
+    display: none;
+  }
+  .team-members-wrap {
+    width: 100%;
+  }
+  .team-wrap {
+    flex-direction: column;
+    width: 100%;
+  }
+  .line {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+    .line {
+    display: none;
+  }
+}
