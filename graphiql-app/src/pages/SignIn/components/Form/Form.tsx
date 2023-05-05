@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../../contexts';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -28,11 +28,16 @@ const API_KEY = 'AIzaSyAysgr5Plp1IojvpjX_GR_h_rRMZ2_Q41Q';
 const Form: React.FC = () => {
   const navigate = useNavigate();
   const authCtx = useAuth();
+  const { signUp, ifToSignUpProv } = useAuth();
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    setIsLogin(() => !ifToSignUpProv);
+  }, [ifToSignUpProv]);
+
   const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
+    signUp(isLogin);
   };
 
   const schema = yup.object().shape({

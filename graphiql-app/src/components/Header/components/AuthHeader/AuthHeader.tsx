@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuth } from '../../contexts';
-import { Header } from '../Header/Header';
+import { useAuth } from '../../../../contexts';
+import { Header } from '../../Header';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const AuthHeader = () => {
@@ -13,7 +13,7 @@ const AuthHeader = () => {
 
   return (
     <Header>
-      <Link to="/sign-in">
+      <Link to="/sign-in" onClick={() => logoutHandler()}>
         <LogoutIcon color="inherit" />
       </Link>
     </Header>
