@@ -8,9 +8,16 @@ import Member from './components/Member/Member';
 
 function Footer() {
   return (
-    <BottomNavigation
-      color="#c5c6c7"
-      sx={{ backgroundColor: '#f1f1f1', height: '200px', px: '60px', paddingBottom: '30px' }}
+    <Box
+      // color="#c5c6c7"
+      sx={{
+        backgroundColor: '#f1f1f1',
+        height: '200px',
+        px: '60px',
+        paddingBottom: '30px',
+        display: 'flex',
+      }}
+      component="footer"
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
         <Link
@@ -29,7 +36,6 @@ function Footer() {
           }}
           className={classes['team-members-wrap']}
         >
-          {' '}
           <Box sx={{ display: 'flex', width: '100%' }}>
             <Typography
               variant="h5"
@@ -56,7 +62,7 @@ function Footer() {
           </Box>
         </Box>
       </Box>
-    </BottomNavigation>
+    </Box>
   );
 }
 
