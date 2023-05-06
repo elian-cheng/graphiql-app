@@ -1,24 +1,18 @@
 import React, { useCallback, useState } from 'react';
 import { IconButton, Container, CircularProgress } from '@mui/material';
 import { PlayArrow } from '@mui/icons-material';
+import type { RootState } from '../../redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { setQuery, setResponse } from '../../redux/graphQLSlice';
 
 import styles from './GraphiQL.module.scss';
-
-// Delete
-const exaQuery = `query allCharacters {
-  characters {
-    results {
-      id
-      name
-    }
-  }
-}`;
 
 const url = 'https://rickandmortyapi.com/graphql';
 
 function GraphiQL() {
-  const [query, setQuery] = useState(exaQuery);
-  const [response, setResponse] = useState('');
+  const query = useSelector((state: RootState) => state.graphQL.query);
+  const response = useSelector((state: RootState) => state.graphQL.response);
+  const dispatch = useDispatch();
   const [isLoaderGoing, setIsLoaderGoing] = useState(false);
 
   const onClickHandler = useCallback(async () => {
@@ -33,10 +27,10 @@ function GraphiQL() {
       });
       const data = await response.json();
       console.log(data);
-      setResponse(JSON.stringify(data, null, 2));
+      dispatch(setResponse(JSON.stringify(data, null, 2)));
       setIsLoaderGoing(false);
     }
-  }, [query]);
+  }, [dispatch, query]);
 
   return (
     <Container>
@@ -45,7 +39,7 @@ function GraphiQL() {
           <textarea
             className={styles['query-textarea']}
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => dispatch(setQuery(event.target.value))}
           ></textarea>
           <IconButton className={styles['btn-start']} color="success" onClick={onClickHandler}>
             <PlayArrow sx={{ fontSize: 30 }} />
