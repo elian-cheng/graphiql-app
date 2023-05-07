@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { IconButton, Container, CircularProgress, Divider } from '@mui/material';
-import { PlayArrow } from '@mui/icons-material';
+import { PlayArrow, ArrowDropDown } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
@@ -61,7 +61,11 @@ function GraphiQL() {
             <div className={styles['tab']} onClick={() => setTabValue('headers')}>
               Headers
             </div>
-            <div className={styles['btn-close']} onClick={() => setTabValue('')}></div>
+            {tabValue !== '' && (
+              <div className={styles['btn-close']} onClick={() => setTabValue('')}>
+                <ArrowDropDown />
+              </div>
+            )}
           </div>
           {tabValue === 'variables' && (
             <div className={styles['textarea-block']}>
