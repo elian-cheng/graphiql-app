@@ -3,7 +3,7 @@ import { IconButton, Container, CircularProgress, Divider } from '@mui/material'
 import { PlayArrow } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { setQuery, setValues, setHeaders, setResponse } from '../../redux/graphQLSlice';
+import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
 
 import styles from './GraphiQL.module.scss';
 
@@ -11,7 +11,7 @@ const url = 'https://rickandmortyapi.com/graphql';
 
 function GraphiQL() {
   const query = useSelector((state: RootState) => state.graphQL.query);
-  const values = useSelector((state: RootState) => state.graphQL.values);
+  const variables = useSelector((state: RootState) => state.graphQL.variables);
   const headers = useSelector((state: RootState) => state.graphQL.headers);
   const response = useSelector((state: RootState) => state.graphQL.response);
   const dispatch = useDispatch();
@@ -28,14 +28,14 @@ function GraphiQL() {
           ...objHeader,
           'Content-type': 'application/json',
         },
-        body: JSON.stringify({ query: query, variables: JSON.parse(values) }),
+        body: JSON.stringify({ query: query, variables: JSON.parse(variables) }),
       });
       const data = await response.json();
       console.log(data);
       dispatch(setResponse(JSON.stringify(data, null, 2)));
       setIsLoaderGoing(false);
     }
-  }, [dispatch, query, values, headers]);
+  }, [dispatch, query, variables, headers]);
 
   return (
     <Container>
@@ -56,8 +56,8 @@ function GraphiQL() {
           <Divider />
           <div className={styles['tab-block']}>
             <div className={styles['tab-panel']}>
-              <div className={styles['tab']} onClick={() => setTabValue('values')}>
-                Values
+              <div className={styles['tab']} onClick={() => setTabValue('variables')}>
+                Variables
               </div>
               <div className={styles['tab']} onClick={() => setTabValue('headers')}>
                 Headers
@@ -65,12 +65,12 @@ function GraphiQL() {
               <div className={styles['btn-close']} onClick={() => setTabValue('')}></div>
             </div>
             <div className={styles['tab-window']}>
-              {tabValue === 'values' && (
+              {tabValue === 'variables' && (
                 <div className={styles['textarea-block']}>
                   <textarea
                     className={styles['textarea']}
-                    value={values}
-                    onChange={(event) => dispatch(setValues(event.target.value))}
+                    value={variables}
+                    onChange={(event) => dispatch(setVariables(event.target.value))}
                   ></textarea>
                 </div>
               )}

@@ -3,14 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface GraphQLState {
   query: string;
-  values: string;
+  variables: string;
   headers: string;
   response: string;
 }
 
 const initialState: GraphQLState = {
   query: '',
-  values: '',
+  variables: '',
   headers: '',
   response: '',
 };
@@ -22,8 +22,8 @@ export const graphQLSlice = createSlice({
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
-    setValues: (state, action: PayloadAction<string>) => {
-      state.values = action.payload;
+    setVariables: (state, action: PayloadAction<string>) => {
+      state.variables = action.payload;
     },
     setHeaders: (state, action: PayloadAction<string>) => {
       state.headers = action.payload;
@@ -34,5 +34,5 @@ export const graphQLSlice = createSlice({
   },
 });
 
-export const { setQuery, setValues, setHeaders, setResponse } = graphQLSlice.actions;
+export const { setQuery, setVariables, setHeaders, setResponse } = graphQLSlice.actions;
 export default graphQLSlice.reducer;
