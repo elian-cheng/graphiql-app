@@ -5,29 +5,36 @@
   padding: 15px 0;
 }
 
-.query-block {
+.editor-block {
   position: relative;
   width: 50%;
-  padding: 20px 60px 20px 20px;
   background-color: rgb(216, 216, 216);
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
 
-  .query-textarea {
-    width: 100%;
-    height: 100%;
-    resize: none;
-    background-color: transparent;
-    // border: none;
+  .query-block {
+    padding: 10px 20px;
+    padding-right: 5px;
+    flex: 1 1;
+    display: flex;
 
-    &:focus {
-      outline: none;
+    .command-panel {
+      margin-left: 5px;
+      display: flex;
+      flex-direction: column;
     }
   }
+}
 
-  .btn-start {
-    position: absolute;
-    right: 7px;
-    top: 20px;
+.textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -42,4 +49,40 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.tab-block {
+  padding: 0 20px 10px;
+
+  .tab-panel {
+    display: flex;
+    padding: 5px;
+    column-gap: 10px;
+    
+    .tab {
+      padding: 0 10px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: aqua;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-close {
+      height: 25px;
+      width: 25px;
+      border-radius: 5px;
+      background-color: aqua;
+      margin-left: auto;
+      cursor: pointer;
+    }
+  }
+  
+
+
+  .textarea-block {
+    height: 80px;
+  }
 }
