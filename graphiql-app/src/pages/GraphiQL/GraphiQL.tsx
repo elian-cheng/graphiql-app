@@ -9,6 +9,15 @@ import styles from './GraphiQL.module.scss';
 
 const url = 'https://rickandmortyapi.com/graphql';
 
+function toParseJSON(str: string, title: string) {
+  try {
+    const obj = JSON.parse(str);
+    return { type: 'success', data: obj };
+  } catch (error) {
+    return { type: 'error', data: `Error with parsing ${title}` };
+  }
+}
+
 function GraphiQL() {
   const query = useSelector((state: RootState) => state.graphQL.query);
   const variables = useSelector((state: RootState) => state.graphQL.variables);
@@ -21,19 +30,33 @@ function GraphiQL() {
   const onClickHandler = useCallback(async () => {
     if (query) {
       setIsLoaderGoing(true);
-      const objHeader = JSON.parse(headers);
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          ...objHeader,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ query: query, variables: JSON.parse(variables) }),
-      });
-      const data = await response.json();
-      console.log(data);
-      dispatch(setResponse(JSON.stringify(data, null, 2)));
-      setIsLoaderGoing(false);
+      try {
+        const objHeader =
+          headers.length > 0 ? toParseJSON(headers, 'Headers') : { type: 'success', data: {} };
+        const objVariables =
+          variables.length > 0
+            ? toParseJSON(variables, 'Variables')
+            : { type: 'success', data: {} };
+
+        if (objHeader.type === 'error') throw new Error(objHeader.data);
+        if (objVariables.type === 'error') throw new Error(objVariables.data);
+
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            ...objHeader.data,
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ query: query, variables: objVariables.data }),
+        });
+        const data = await response.json();
+        dispatch(setResponse(JSON.stringify(data, null, 2)));
+      } catch (error) {
+        const thisError = error as Error;
+        dispatch(setResponse(thisError.message));
+      } finally {
+        setIsLoaderGoing(false);
+      }
     }
   }, [dispatch, query, variables, headers]);
 
