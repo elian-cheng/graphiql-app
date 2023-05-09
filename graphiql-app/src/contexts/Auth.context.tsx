@@ -7,6 +7,8 @@ interface IAuthContext {
   isLoggedIn: boolean;
   login: (token: string, expirationTime: string) => void;
   logout: () => void;
+  signUp: (ifSignUp: boolean) => void;
+  ifToSignUpProv: boolean;
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -14,6 +16,8 @@ export const AuthContext = createContext<IAuthContext>({
   isLoggedIn: false,
   login: () => {},
   logout: () => {},
+  signUp: () => false,
+  ifToSignUpProv: false,
 });
 
 const calculateRemainingTime = (expirationTime: string): number => {
@@ -88,11 +92,19 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     }
   }, [tokenData, logoutHandler]);
 
+  const [ifToSignUp, setIftoSignUp] = useState(false);
+
+  const signUpHandler = useCallback((ifSignUpArg: boolean) => {
+    setIftoSignUp(ifSignUpArg);
+  }, []);
+
   const contextValue: IAuthContext = {
     token: token,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    signUp: signUpHandler,
+    ifToSignUpProv: ifToSignUp,
   };
 
   return <AuthContext.Provider value={contextValue}>{props.children}</AuthContext.Provider>;

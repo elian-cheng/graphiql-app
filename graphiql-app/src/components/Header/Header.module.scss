@@ -1,0 +1,74 @@
+@import url('../../index.scss');
+
+.header {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  backdrop-filter: blur(10px);
+  background-color: rgba($color: #172e4a, $alpha: 0.8);
+  box-shadow: 0 2px 16px rgba(133, 133, 133, 0.1);
+}
+
+.header * {
+  vertical-align: middle;
+}
+
+.container {
+  padding: 8px 30px;
+}
+
+.header-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-cyan);
+}
+
+.header svg {
+  vertical-align: middle;
+  max-height: 30px;
+}
+
+.header.header__sticky {
+  position: fixed;
+  background-color: rgba($color: #fff, $alpha: 0.1);
+  box-shadow: 0 2px 16px rgba(133, 133, 133, 0.1);
+  backdrop-filter: blur(10px);
+  animation: slideDown 0.35s ease-out;
+}
+
+.header.header__sticky .logo * {
+  color: var(--color-blue-dark);
+  vertical-align: middle;
+}
+
+.header.header__sticky img.logo {
+  background-color: aquamarine;
+  color: red !important;
+}
+.header.header__sticky nav {
+  color: var(--color-blue-dark);
+}
+
+.header.header__sticky li {
+  font-size: 14px;
+  padding: 7px 10px;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 500px) {
+  .logoText {
+    display: none;
+  }
+}

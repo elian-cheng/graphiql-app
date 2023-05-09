@@ -1,4 +1,4 @@
-import AuthHeader from './AuthHeader/AuthHeader';
-import NonAuthHeader from './NonAuthHeader/NonAuthHeader';
+import AuthHeader from './Header/components/AuthHeader/AuthHeader';
+import NonAuthHeader from './Header/components/NonAuthHeader/NonAuthHeader';
 
 export { AuthHeader, NonAuthHeader };
