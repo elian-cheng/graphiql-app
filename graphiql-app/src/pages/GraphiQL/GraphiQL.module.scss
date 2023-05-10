@@ -40,6 +40,12 @@
 .response-block {
   flex: 1 1;
   padding: 20px;
+
+  .response {
+    &.error {
+      color: red;
+    }
+  }
 }
 
 .loader-block {

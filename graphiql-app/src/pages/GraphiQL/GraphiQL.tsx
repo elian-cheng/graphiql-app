@@ -14,7 +14,7 @@ function toParseJSON(str: string, title: string) {
     const obj = JSON.parse(str);
     return { type: 'success', data: obj };
   } catch (error) {
-    return { type: 'error', data: `Error with parsing ${title}` };
+    return { type: 'error', data: `${title} are invalid JSON: ${(error as Error).message}` };
   }
 }
 
@@ -26,10 +26,12 @@ function GraphiQL() {
   const dispatch = useDispatch();
   const [isLoaderGoing, setIsLoaderGoing] = useState(false);
   const [tabValue, setTabValue] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const onClickHandler = useCallback(async () => {
     if (query) {
       setIsLoaderGoing(true);
+      setIsError(false);
       try {
         const objHeader =
           headers.length > 0 ? toParseJSON(headers, 'Headers') : { type: 'success', data: {} };
@@ -51,9 +53,10 @@ function GraphiQL() {
         });
         const data = await response.json();
         dispatch(setResponse(JSON.stringify(data, null, 2)));
+        if (data['errors']) setIsError(true);
       } catch (error) {
-        const thisError = error as Error;
-        dispatch(setResponse(thisError.message));
+        dispatch(setResponse((error as Error).message));
+        setIsError(true);
       } finally {
         setIsLoaderGoing(false);
       }
@@ -116,7 +119,11 @@ function GraphiQL() {
             <CircularProgress />
           </div>
         ) : (
-          <pre>{response}</pre>
+          <pre
+            className={!isError ? styles['response'] : `${styles['response']} ${styles['error']}`}
+          >
+            {response}
+          </pre>
         )}
       </div>
     </Container>
