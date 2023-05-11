@@ -5,20 +5,20 @@ type SEnumType = {
   deprecationReason: null;
 };
 
-type SMiniType = {
+export type SMiniType = {
   kind: string;
   name: string | null;
   ofType: SMiniType | null;
 };
 
-type SArgType = {
+export type SArgType = {
   name: string;
   description: string;
   type: SMiniType;
   defaultValue: null;
 };
 
-type SFieldType = {
+export type SFieldType = {
   name: string;
   description: string;
   args: SArgType[];
@@ -27,7 +27,7 @@ type SFieldType = {
   deprecationReason: null;
 };
 
-type SType = {
+export type SType = {
   kind: string;
   name: string;
   description: string;
