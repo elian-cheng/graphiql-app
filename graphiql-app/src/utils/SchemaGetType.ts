@@ -20,7 +20,7 @@ function schemaGetType(type: SMiniType) {
         return acc;
     }
   }, typeName);
-  return [mainType, typeName];
+  return [mainType, typeName] as [string, string];
 }
 
 export default schemaGetType;

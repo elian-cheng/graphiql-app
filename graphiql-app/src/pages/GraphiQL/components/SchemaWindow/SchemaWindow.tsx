@@ -1,60 +1,89 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Typography } from '@mui/material';
-import { SchemaType, SType, SArgType } from '../../../../types/SchemaType';
 import schemaGetType from '../../../../utils/SchemaGetType';
+import { useSchemaDocumentation } from '../../../../contexts';
+import { SArgType } from 'types/SchemaType';
 
 // import styles from './SchemaWindow.module.scss';
 
-interface SchemaStackElem {
-  description: string;
-  type?: SType;
-  args: SArgType[];
-}
+function SchemaWindow() {
+  const { schema, pushToStack, getCurrentElem } = useSchemaDocumentation();
 
-interface SchemaWindowProps {
-  nextPage: (elem: SchemaStackElem) => void;
-  schema: SchemaType;
-}
+  const currentElem = useMemo(() => getCurrentElem(), [getCurrentElem]);
+  const typeObj = useMemo(
+    () => schema?.types.find((type) => type.name === currentElem.type[1]),
+    [schema, currentElem]
+  );
 
-function SchemaWindow(props: SchemaWindowProps & SchemaStackElem) {
-  const { description, type, args, nextPage, schema } = props;
+  const onClickHandlerLi = useCallback(
+    (name: string, description: string, type: [string, string], args: SArgType[] = []) => {
+      pushToStack({
+        name,
+        description,
+        type,
+        args,
+      });
+    },
+    [pushToStack]
+  );
 
   return (
     <div>
-      <div>{description}</div>
-      {type && (
+      <div>
+        {currentElem.name}
+        {currentElem.args.length > 0 && (
+          <>
+            (
+            <ul>
+              {currentElem.args.map((arg, idx) => (
+                <li key={idx}>
+                  {arg.name}: {schemaGetType(arg.type)[0]}
+                </li>
+              ))}
+            </ul>
+            )
+          </>
+        )}
+        : {currentElem.type[0]}
+      </div>
+      <div>{currentElem.description}</div>
+      {typeObj && (
         <div>
           <Typography variant="h6">Type Details</Typography>
-          {type.description.length > 0 && (
+          {typeObj.description.length > 0 && (
             <div>
-              <Typography variant="body1">{type.description}</Typography>
-              {type.kind} {type.name}
+              <Typography variant="body1">{typeObj.description}</Typography>
+              {typeObj.kind} {typeObj.name}
             </div>
           )}
-          {(type.fields || type.inputFields) && (
+          {(typeObj.fields || typeObj.inputFields) && (
             <div>
               <div>
-                type {type.name} {`{`}
+                type {typeObj.name} {`{`}
               </div>
               <ul>
-                {type.fields?.map((field, idx) => (
+                {typeObj.fields?.map((field, idx) => (
                   <li
                     key={idx}
                     onClick={() =>
-                      nextPage({
-                        description: field.description,
-                        type: schema.types.find(
-                          (type) => type.name === schemaGetType(field.type)[1]
-                        ),
-                        args: field.args,
-                      })
+                      onClickHandlerLi(
+                        field.name,
+                        field.description,
+                        schemaGetType(field.type),
+                        field.args
+                      )
                     }
                   >
                     {field.name}: {schemaGetType(field.type)[0]}
                   </li>
                 ))}
-                {type.inputFields?.map((field, idx) => (
-                  <li key={idx}>
+                {typeObj.inputFields?.map((field, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() =>
+                      onClickHandlerLi(field.name, field.description, schemaGetType(field.type))
+                    }
+                  >
                     {field.name}: {schemaGetType(field.type)[0]}
                   </li>
                 ))}
@@ -64,12 +93,15 @@ function SchemaWindow(props: SchemaWindowProps & SchemaStackElem) {
           )}
         </div>
       )}
-      {args.length > 0 && (
+      {currentElem.args.length > 0 && (
         <div>
           <Typography variant="h6">Arguments</Typography>
           <ul>
-            {args.map((arg, idx) => (
-              <li key={idx}>
+            {currentElem.args.map((arg, idx) => (
+              <li
+                key={idx}
+                onClick={() => onClickHandlerLi(arg.name, arg.description, schemaGetType(arg.type))}
+              >
                 {arg.name}: {schemaGetType(arg.type)[0]}
               </li>
             ))}
