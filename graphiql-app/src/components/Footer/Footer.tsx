@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, BottomNavigation } from '@mui/material';
+import { Typography } from '@mui/material';
 import rs from '../../assets/svg/course.svg';
 import classes from './Footer.module.scss';
 import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ function Footer() {
       // color="#c5c6c7"
       sx={{
         backgroundColor: '#f1f1f1',
-        height: '200px',
+        height: '125px',
         px: '60px',
         paddingBottom: '30px',
         display: 'flex',
@@ -38,7 +38,7 @@ function Footer() {
         >
           <Box sx={{ display: 'flex', width: '100%' }}>
             <Typography
-              variant="h5"
+              variant="h6"
               sx={{ textTransform: 'capitalize', whiteSpace: 'nowrap', paddingRight: '17px' }}
             >
               The Team
