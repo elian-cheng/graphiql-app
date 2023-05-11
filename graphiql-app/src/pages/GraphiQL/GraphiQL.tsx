@@ -1,9 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IconButton, Container, CircularProgress, Divider } from '@mui/material';
 import { PlayArrow, ArrowDropDown } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
+
+import { Schema } from './components';
+import { SchemaType } from '../../types/SchemaType';
 
 import styles from './GraphiQL.module.scss';
 
@@ -17,6 +20,27 @@ function GraphiQL() {
   const dispatch = useDispatch();
   const [isLoaderGoing, setIsLoaderGoing] = useState(false);
   const [tabValue, setTabValue] = useState('');
+
+  const [schema, setSchema] = useState<SchemaType>();
+
+  useEffect(() => console.log(schema), [schema]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          query:
+            'query IntrospectionQuery {\n  __schema {\n    queryType {\n      name\n    }\n    mutationType {\n      name\n    }\n    subscriptionType {\n      name\n    }\n    types {\n      ...FullType\n    }\n    directives {\n      name\n      description\n      locations\n      args {\n        ...InputValue\n      }\n    }\n  }\n}\n\nfragment FullType on __Type {\n  kind\n  name\n  description\n  fields(includeDeprecated: true) {\n    name\n    description\n    args {\n      ...InputValue\n    }\n    type {\n      ...TypeRef\n    }\n    isDeprecated\n    deprecationReason\n  }\n  inputFields {\n    ...InputValue\n  }\n  interfaces {\n    ...TypeRef\n  }\n  enumValues(includeDeprecated: true) {\n    name\n    description\n    isDeprecated\n    deprecationReason\n  }\n  possibleTypes {\n    ...TypeRef\n  }\n}\n\nfragment InputValue on __InputValue {\n  name\n  description\n  type {\n    ...TypeRef\n  }\n  defaultValue\n}\n\nfragment TypeRef on __Type {\n  kind\n  name\n  ofType {\n    kind\n    name\n    ofType {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n',
+        }),
+      });
+      const data = await response.json();
+      setSchema(data['data']['__schema']);
+    })();
+  }, []);
 
   const onClickHandler = useCallback(async () => {
     if (query) {
@@ -96,6 +120,7 @@ function GraphiQL() {
           <pre>{response}</pre>
         )}
       </div>
+      {schema && <Schema schema={schema} />}
     </Container>
   );
 }
