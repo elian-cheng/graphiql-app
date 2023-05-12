@@ -2,17 +2,11 @@
   position: absolute;
   background-color: white;
   min-width: 300px;
-  min-height: 400px;
+  height: 600px;
+  overflow-y: auto;
 }
 
-.query-item {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
+.title {
   padding: 5px 10px;
-  cursor: pointer;
-
-  .arrow {
-    margin-left: auto;
-  }
+  text-transform: uppercase;
 }

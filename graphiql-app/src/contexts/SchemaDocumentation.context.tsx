@@ -15,6 +15,7 @@ interface SchemaDocumentationContext {
   schemaStack: SchemaStackElem[];
   pushToStack: (elem: SchemaStackElem) => void;
   popFromStack: () => void;
+  resetStack: () => void;
   getCurrentElem: () => SchemaStackElem;
 }
 
@@ -25,6 +26,7 @@ export const SchemaDocumentationContext = createContext<SchemaDocumentationConte
   schemaStack: [],
   pushToStack: () => undefined,
   popFromStack: () => undefined,
+  resetStack: () => undefined,
   getCurrentElem: () => ({ name: 'Error', description: 'Default func', type: ['', ''], args: [] }),
 });
 
@@ -56,6 +58,10 @@ export const SchemaDocumentationProvider = (props: { children: React.ReactNode }
     setSchemaStack((prev) => prev.slice(0, prev.length - 1));
   }, []);
 
+  const resetStack = useCallback(() => {
+    setSchemaStack([]);
+  }, []);
+
   const getCurrentElem = useCallback(() => {
     return schemaStack[schemaStack.length - 1];
   }, [schemaStack]);
@@ -68,9 +74,19 @@ export const SchemaDocumentationProvider = (props: { children: React.ReactNode }
       schemaStack,
       pushToStack,
       popFromStack,
+      resetStack,
       getCurrentElem,
     }),
-    [str, schema, loadSchemaFromServer, schemaStack, pushToStack, popFromStack, getCurrentElem]
+    [
+      str,
+      schema,
+      loadSchemaFromServer,
+      schemaStack,
+      pushToStack,
+      popFromStack,
+      resetStack,
+      getCurrentElem,
+    ]
   );
 
   return (

@@ -1,13 +1,16 @@
 import React, { useCallback, useMemo } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Divider } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 import schemaGetType from '../../../../utils/SchemaGetType';
 import { useSchemaDocumentation } from '../../../../contexts';
 import { SArgType } from 'types/SchemaType';
+import { SchemaListItem } from '../';
 
-// import styles from './SchemaWindow.module.scss';
+import styles from './SchemaWindow.module.scss';
 
 function SchemaWindow() {
-  const { schema, pushToStack, getCurrentElem } = useSchemaDocumentation();
+  const { schema, pushToStack, popFromStack, resetStack, getCurrentElem } =
+    useSchemaDocumentation();
 
   const currentElem = useMemo(() => getCurrentElem(), [getCurrentElem]);
   const typeObj = useMemo(
@@ -28,85 +31,120 @@ function SchemaWindow() {
   );
 
   return (
-    <div>
-      <div>
-        {currentElem.name}
+    <div className={styles['schema-window-block']}>
+      <div className={styles['control-panel']}>
+        <button className={styles['button']} onClick={popFromStack}>
+          <ArrowBack />
+        </button>
+        <button className={styles['button']} onClick={resetStack}>
+          <Typography className={styles['button-text']} variant="body2" component="span">
+            Main
+          </Typography>
+        </button>
+      </div>
+      <div className={styles['schema-window-content']}>
+        <Typography variant="body2" component="span" className={styles['first-text']}>
+          {currentElem.name}
+        </Typography>
         {currentElem.args.length > 0 && (
           <>
-            (
+            <Typography variant="body2" component="span">
+              (
+            </Typography>
             <ul>
               {currentElem.args.map((arg, idx) => (
-                <li key={idx}>
-                  {arg.name}: {schemaGetType(arg.type)[0]}
-                </li>
+                <SchemaListItem
+                  key={idx}
+                  text={`${arg.name}: ${schemaGetType(arg.type)[0]}`}
+                  newClassName={styles['nested-item']}
+                />
               ))}
             </ul>
-            )
+            <Typography variant="body2" component="span" className={styles['first-text']}>
+              )
+            </Typography>
           </>
         )}
-        : {currentElem.type[0]}
+        <Typography variant="body2" component="span">
+          : {currentElem.type[0]}
+        </Typography>
       </div>
-      <div>{currentElem.description}</div>
+      <Typography variant="body2" className={`${styles['description']} ${styles['main-desc']}`}>
+        {currentElem.description}
+      </Typography>
       {typeObj && (
-        <div>
-          <Typography variant="h6">Type Details</Typography>
-          {typeObj.description.length > 0 && (
-            <div>
-              <Typography variant="body1">{typeObj.description}</Typography>
-              {typeObj.kind} {typeObj.name}
-            </div>
-          )}
-          {(typeObj.fields || typeObj.inputFields) && (
-            <div>
-              <div>
-                type {typeObj.name} {`{`}
+        <>
+          <Divider className={styles['divider']} />
+          <div>
+            <Typography variant="h6" className={styles['title']}>
+              Type Details
+            </Typography>
+            {typeObj.description.length > 0 && (
+              <div className={styles['description']}>
+                <Typography variant="body2">{typeObj.description}</Typography>
+                <Typography variant="body2" className={styles['type']}>
+                  {typeObj.kind} {typeObj.name}
+                </Typography>
               </div>
-              <ul>
-                {typeObj.fields?.map((field, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() =>
-                      onClickHandlerLi(
-                        field.name,
-                        field.description,
-                        schemaGetType(field.type),
-                        field.args
-                      )
-                    }
-                  >
-                    {field.name}: {schemaGetType(field.type)[0]}
-                  </li>
-                ))}
-                {typeObj.inputFields?.map((field, idx) => (
-                  <li
-                    key={idx}
-                    onClick={() =>
-                      onClickHandlerLi(field.name, field.description, schemaGetType(field.type))
-                    }
-                  >
-                    {field.name}: {schemaGetType(field.type)[0]}
-                  </li>
-                ))}
-              </ul>
-              <div>{`}`}</div>
-            </div>
-          )}
-        </div>
+            )}
+            {(typeObj.fields || typeObj.inputFields) && (
+              <div>
+                <Typography variant="body2" className={styles['first-text']}>
+                  type {typeObj.name} {`{`}
+                </Typography>
+                <ul>
+                  {typeObj.fields?.map((field, idx) => (
+                    <SchemaListItem
+                      key={idx}
+                      text={`${field.name}: ${schemaGetType(field.type)[0]}`}
+                      newClassName={styles['nested-item']}
+                      onCkickHandler={() =>
+                        onClickHandlerLi(
+                          field.name,
+                          field.description,
+                          schemaGetType(field.type),
+                          field.args
+                        )
+                      }
+                    />
+                  ))}
+                  {typeObj.inputFields?.map((field, idx) => (
+                    <SchemaListItem
+                      key={idx}
+                      text={`${field.name}: ${schemaGetType(field.type)[0]}`}
+                      newClassName={styles['nested-item']}
+                      onCkickHandler={() =>
+                        onClickHandlerLi(field.name, field.description, schemaGetType(field.type))
+                      }
+                    />
+                  ))}
+                </ul>
+                <Typography variant="body2" className={styles['first-text']}>{`}`}</Typography>
+              </div>
+            )}
+          </div>
+        </>
       )}
       {currentElem.args.length > 0 && (
-        <div>
-          <Typography variant="h6">Arguments</Typography>
-          <ul>
-            {currentElem.args.map((arg, idx) => (
-              <li
-                key={idx}
-                onClick={() => onClickHandlerLi(arg.name, arg.description, schemaGetType(arg.type))}
-              >
-                {arg.name}: {schemaGetType(arg.type)[0]}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <>
+          <Divider className={styles['divider']} />
+          <div>
+            <Typography variant="h6" className={styles['title']}>
+              Arguments
+            </Typography>
+            <ul>
+              {currentElem.args.map((arg, idx) => (
+                <SchemaListItem
+                  key={idx}
+                  text={`${arg.name}: ${schemaGetType(arg.type)[0]}`}
+                  onCkickHandler={() =>
+                    onClickHandlerLi(arg.name, arg.description, schemaGetType(arg.type))
+                  }
+                />
+              ))}
+            </ul>
+          </div>
+        </>
       )}
     </div>
   );

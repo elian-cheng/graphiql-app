@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Typography } from '@mui/material';
-import { SchemaWindow } from '../';
+import { Typography, Divider } from '@mui/material';
+import { SchemaListItem, SchemaWindow } from '../';
 import { useSchemaDocumentation } from '../../../../contexts';
 import { SchemaType } from 'types/SchemaType';
 import schemaGetType from '../../../../utils/SchemaGetType';
@@ -12,22 +12,25 @@ interface SchemaProps {
 }
 
 function Schema({ schema }: SchemaProps) {
-  const { schemaStack, pushToStack, popFromStack } = useSchemaDocumentation();
+  const { schemaStack, pushToStack } = useSchemaDocumentation();
 
   return (
     <div className={styles['main-block']}>
       {schemaStack.length === 0 && (
         <div className={styles['queries-block']}>
-          <Typography variant="h6">Queries</Typography>
+          <Typography variant="h6" className={styles['title']}>
+            Queries
+          </Typography>
+          <Divider />
           <ul>
             {schema.types
               .find((type) => type.name === 'Query')
               ?.fields?.map((field, idx) => {
                 return (
-                  <li
+                  <SchemaListItem
                     key={idx}
-                    className={styles['query-item']}
-                    onClick={() =>
+                    text={`${field.name}(...): ${schemaGetType(field.type)[0]}`}
+                    onCkickHandler={() =>
                       pushToStack({
                         name: field.name,
                         description: field.description,
@@ -35,23 +38,13 @@ function Schema({ schema }: SchemaProps) {
                         args: field.args,
                       })
                     }
-                  >
-                    {field.name}(...): {schemaGetType(field.type)[0]}{' '}
-                    <span className={styles['arrow']}>&gt;</span>
-                  </li>
+                  />
                 );
               })}
           </ul>
         </div>
       )}
-      {schemaStack.length > 0 && (
-        <div>
-          <Button variant="contained" onClick={popFromStack}>
-            Back
-          </Button>
-          <SchemaWindow />
-        </div>
-      )}
+      {schemaStack.length > 0 && <SchemaWindow />}
     </div>
   );
 }
