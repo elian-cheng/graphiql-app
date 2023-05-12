@@ -1,11 +1,15 @@
-import React, { useCallback, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import { IconButton, Container, CircularProgress, Divider } from '@mui/material';
 import { PlayArrow, ArrowDropDown } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
+import { useSchemaDocumentation } from '../../contexts';
 
 import styles from './GraphiQL.module.scss';
+
+const Schema = React.lazy(() => import('./components/Schema/Schema'));
 
 const url = 'https://rickandmortyapi.com/graphql';
 
@@ -19,6 +23,7 @@ function toParseJSON(str: string, title: string) {
 }
 
 function GraphiQL() {
+  const { schema, loadSchemaFromServer } = useSchemaDocumentation();
   const query = useSelector((state: RootState) => state.graphQL.query);
   const variables = useSelector((state: RootState) => state.graphQL.variables);
   const headers = useSelector((state: RootState) => state.graphQL.headers);
@@ -27,6 +32,10 @@ function GraphiQL() {
   const [isLoaderGoing, setIsLoaderGoing] = useState(false);
   const [tabValue, setTabValue] = useState('');
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    loadSchemaFromServer(url);
+  }, []);
 
   const onClickHandler = useCallback(async () => {
     if (query) {
@@ -126,6 +135,11 @@ function GraphiQL() {
           </pre>
         )}
       </div>
+      {schema && (
+        <Suspense>
+          <Schema schema={schema} />
+        </Suspense>
+      )}
     </Container>
   );
 }
