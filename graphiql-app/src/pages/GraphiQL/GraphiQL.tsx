@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import { IconButton, Container, CircularProgress, Divider } from '@mui/material';
 import { PlayArrow, ArrowDropDown } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
 import { useSchemaDocumentation } from '../../contexts';
-import { Schema } from './components';
 
 import styles from './GraphiQL.module.scss';
+
+const Schema = React.lazy(() => import('./components/Schema/Schema'));
 
 const url = 'https://rickandmortyapi.com/graphql';
 
@@ -104,7 +105,11 @@ function GraphiQL() {
           <pre>{response}</pre>
         )}
       </div>
-      {schema && <Schema schema={schema} />}
+      {schema && (
+        <Suspense>
+          <Schema schema={schema} />
+        </Suspense>
+      )}
     </Container>
   );
 }
