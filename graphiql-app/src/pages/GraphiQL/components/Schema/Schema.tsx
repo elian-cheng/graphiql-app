@@ -38,7 +38,7 @@ function Schema({ schema }: SchemaProps) {
                     <SchemaListItem
                       key={idx}
                       text={`${field.name}(...): ${schemaGetType(field.type)[0]}`}
-                      onCkickHandler={() =>
+                      onClickHandler={() =>
                         pushToStack({
                           name: field.name,
                           description: field.description,
