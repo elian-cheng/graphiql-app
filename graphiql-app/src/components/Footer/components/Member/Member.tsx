@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 import { GitHub } from '@mui/icons-material';
-import classes from './Member.module.scss';
 
 type MemberProps = {
   name: string;

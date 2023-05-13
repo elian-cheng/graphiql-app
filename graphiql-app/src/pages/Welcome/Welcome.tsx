@@ -13,7 +13,7 @@ function Welcome() {
       },
       // Add Avatars
       { avatar: '', name: 'Elenadatso' },
-      { avatar: '', name: 'Elian-cheng' },
+      { avatar: 'src/assets/images/avatar_2.jpg', name: 'Elian-cheng' },
     ],
     []
   );

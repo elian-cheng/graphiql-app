@@ -5,7 +5,6 @@ import { Form } from './components';
 function SignIn() {
   return (
     <Container>
-      <h1>SignIn</h1>
       <Form />
     </Container>
   );
