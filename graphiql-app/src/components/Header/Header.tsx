@@ -18,7 +18,9 @@ export const Header = (props: {
     | undefined;
 }) => {
   const [isSticky, setIsSticky] = useState(false);
-  const { i18n } = useTranslation();
+  const {
+    i18n: { changeLanguage },
+  } = useTranslation();
 
   useEffect(() => {
     function handleScroll() {
@@ -37,7 +39,8 @@ export const Header = (props: {
   }, []);
 
   const changeLanguageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.target.checked ? i18n.changeLanguage('en') : i18n.changeLanguage('ru');
+    const newLanguage = e.target.checked ? 'en' : 'ru';
+    changeLanguage(newLanguage);
   };
 
   return (
