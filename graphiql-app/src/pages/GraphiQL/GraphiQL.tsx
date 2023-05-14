@@ -6,6 +6,7 @@ import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
 import { useSchemaDocumentation } from '../../contexts';
+import { useTranslation } from 'react-i18next';
 
 import styles from './GraphiQL.module.scss';
 
@@ -32,6 +33,7 @@ function GraphiQL() {
   const [isLoaderGoing, setIsLoaderGoing] = useState(false);
   const [tabValue, setTabValue] = useState('');
   const [isError, setIsError] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadSchemaFromServer(url);
@@ -91,10 +93,10 @@ function GraphiQL() {
         <div className={styles['tab-block']}>
           <div className={styles['tab-panel']}>
             <div className={styles['tab']} onClick={() => setTabValue('variables')}>
-              Variables
+              {t('Variables')}
             </div>
             <div className={styles['tab']} onClick={() => setTabValue('headers')}>
-              Headers
+              {t('Headers')}
             </div>
             {tabValue !== '' && (
               <div className={styles['btn-close']} onClick={() => setTabValue('')}>

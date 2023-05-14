@@ -1,10 +1,13 @@
 import React, { useMemo } from 'react';
 import { Container, Link, Typography } from '@mui/material';
 import { AvatarCom } from './components';
+import { Trans, useTranslation } from 'react-i18next';
 
 import styles from './Welcome.module.scss';
 
 function Welcome() {
+  const { t } = useTranslation();
+
   const developers = useMemo(
     () => [
       {
@@ -13,7 +16,7 @@ function Welcome() {
       },
       // Add Avatars
       { avatar: '', name: 'Elenadatso' },
-      { avatar: '', name: 'Elian-cheng' },
+      { avatar: 'src/assets/images/avatar_2.jpg', name: 'Elian-cheng' },
     ],
     []
   );
@@ -22,7 +25,7 @@ function Welcome() {
     <Container>
       <section className={styles['section']}>
         <Typography variant="h3" className={styles['title']}>
-          Developers
+          {t('Developers')}
         </Typography>
         <ul className={styles['avatar-list']}>
           {developers.map((developer, idx) => (
@@ -34,35 +37,32 @@ function Welcome() {
       </section>
       <section className={styles['section']}>
         <Typography variant="h3" className={styles['title']}>
-          Project
+          {t('Project')}
         </Typography>
         <div className={styles['section-content']}>
           <div className={styles['project-logo']}></div>
           <div className={styles['text-content']}>
             <Typography variant="body1">
-              &emsp; This project provides the ability to send requests to the &quot;
-              <Link href="https://rickandmortyapi.com/" underline="hover">
-                Rick and Morty API
-              </Link>
-              &quot; and get data using GraphQL.
+              <Trans i18nKey="welcome-text-1" t={t}>
+                <Link href="https://rickandmortyapi.com/" underline="hover" target="_blank"></Link>
+              </Trans>
             </Typography>
           </div>
         </div>
       </section>
       <section className={styles['section']}>
         <Typography variant="h3" className={styles['title']}>
-          Course
+          {t('Course')}
         </Typography>
         <div className={styles['section-content']}>
           <div className={styles['text-content']}>
             <Typography variant="body1">
-              &emsp; <b>RS School</b> is free-of-charge and community-based education program
-              conducted by The Rolling Scopes developer community since 2013.
+              <Trans i18nKey="welcome-text-2" t={t}>
+                <b>RS School</b>
+              </Trans>
             </Typography>
-            <Typography variant="body1">
-              &emsp; Everyone can study at RS School, regardless of age, professional employment, or
-              place of residence. The mentors and trainers of our school are front-end and
-              javascript developers from different companies and countries.
+            <Typography variant="body1" sx={{ mb: '2.5rem' }}>
+              {t('welcome-text-3')}
             </Typography>
           </div>
           <div className={styles['course-logo']}></div>

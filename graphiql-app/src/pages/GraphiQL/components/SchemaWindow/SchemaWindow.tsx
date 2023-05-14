@@ -98,7 +98,7 @@ function SchemaWindow() {
                       key={idx}
                       text={`${field.name}: ${schemaGetType(field.type)[0]}`}
                       newClassName={styles['nested-item']}
-                      onCkickHandler={() =>
+                      onClickHandler={() =>
                         onClickHandlerLi(
                           field.name,
                           field.description,
@@ -113,7 +113,7 @@ function SchemaWindow() {
                       key={idx}
                       text={`${field.name}: ${schemaGetType(field.type)[0]}`}
                       newClassName={styles['nested-item']}
-                      onCkickHandler={() =>
+                      onClickHandler={() =>
                         onClickHandlerLi(field.name, field.description, schemaGetType(field.type))
                       }
                     />
@@ -137,7 +137,7 @@ function SchemaWindow() {
                 <SchemaListItem
                   key={idx}
                   text={`${arg.name}: ${schemaGetType(arg.type)[0]}`}
-                  onCkickHandler={() =>
+                  onClickHandler={() =>
                     onClickHandlerLi(arg.name, arg.description, schemaGetType(arg.type))
                   }
                 />

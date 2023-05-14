@@ -16,6 +16,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { LockOutlined } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 interface IFormData {
   email: string;
@@ -31,6 +32,7 @@ const Form: React.FC = () => {
   const { signUp, ifToSignUpProv } = useAuth();
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsLogin(() => !ifToSignUpProv);
@@ -40,19 +42,26 @@ const Form: React.FC = () => {
     signUp(isLogin);
   };
 
+  const translate = (key: string): string => {
+    const translatedMessage = t(key);
+    return translatedMessage || 'Incorrect input';
+  };
+
   const schema = yup.object().shape({
     email: yup
       .string()
-      .email('Email should have correct format')
-      .required('Email is a required field'),
+      .email(translate('Email should have correct format'))
+      .required(translate('Email is a required field')),
     password: yup
       .string()
-      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .min(8, translate('Password is too short - should be 8 chars minimum.'))
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+        translate(
+          'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+        )
       )
-      .required('No password provided.'),
+      .required(translate('No password provided.')),
   });
 
   const {
@@ -131,7 +140,7 @@ const Form: React.FC = () => {
         <LockOutlined />
       </Avatar>
       <Typography component="h2" variant="h4" sx={{ my: '.5rem' }}>
-        {isLogin ? 'Login' : 'Registration'}
+        {isLogin ? t('login') : t('signup')}
       </Typography>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -141,7 +150,7 @@ const Form: React.FC = () => {
           required
           fullWidth
           id="email"
-          label="Email"
+          label={t('email')}
           name="email"
           type="email"
           autoComplete="email"
@@ -154,8 +163,8 @@ const Form: React.FC = () => {
           margin="normal"
           required
           fullWidth
+          label={t('password')}
           name="password"
-          label="Password"
           type={showPassword ? 'text' : 'password'}
           id="password"
           autoComplete="current-password"
@@ -165,7 +174,7 @@ const Form: React.FC = () => {
 
         <FormControlLabel
           control={<Checkbox {...register('showPassword')} color="primary" />}
-          label="Show password"
+          label={t('Show password')}
           sx={{ my: '1rem' }}
         />
 
@@ -176,16 +185,16 @@ const Form: React.FC = () => {
             variant="contained"
             sx={{ color: 'white', backgroundColor: '#172e4a', py: '.8rem' }}
           >
-            {isLogin ? 'Sign In' : 'Sign Up'}
+            {isLogin ? t('Sign In') : t('Sign Up')}
           </Button>
         )}
 
-        {isLoading && <p>Sending request...</p>}
+        {isLoading && <p>{t('Sending request...')}</p>}
 
         <Grid container sx={{ mt: '1rem' }}>
           <Grid item>
             <Link href="#" variant="body2" onClick={switchAuthModeHandler}>
-              {isLogin ? "Don't have an account? Sign Up" : 'Do you have an account? Sign In'}
+              {isLogin ? t("Don't have an account? Sign Up") : t('Do you have an account? Sign In')}
             </Link>
           </Grid>
         </Grid>

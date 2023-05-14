@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 import classes from './Header.module.scss';
+import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
 
 export const Header = (props: {
   children:
@@ -16,6 +18,9 @@ export const Header = (props: {
     | undefined;
 }) => {
   const [isSticky, setIsSticky] = useState(false);
+  const {
+    i18n: { changeLanguage },
+  } = useTranslation();
 
   useEffect(() => {
     function handleScroll() {
@@ -32,6 +37,11 @@ export const Header = (props: {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const changeLanguageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newLanguage = e.target.checked ? 'en' : 'ru';
+    changeLanguage(newLanguage);
+  };
 
   return (
     <header className={`${classes.header} ${isSticky ? classes['header__sticky'] : ''}`}>
@@ -59,7 +69,10 @@ export const Header = (props: {
               </Typography>
             </div>
           </Link>
-          <nav>{props.children}</nav>
+          <nav>
+            {props.children}
+            <LanguageSwitcher onChangeLanguage={changeLanguageHandler} />
+          </nav>
         </div>
       </div>
     </header>

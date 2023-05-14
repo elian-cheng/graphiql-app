@@ -7,22 +7,22 @@ import styles from './SchemaListItem.module.scss';
 interface SchemaListItemProps {
   text: string;
   newClassName?: string;
-  onCkickHandler?: () => void;
+  onClickHandler?: () => void;
 }
 
 function SchemaListItem(props: SchemaListItemProps) {
-  const { text, newClassName, onCkickHandler } = props;
+  const { text, newClassName, onClickHandler } = props;
 
   const classNames = useMemo(() => {
     let className = styles['item'];
-    if (onCkickHandler) className += ` ${styles['click-item']}`;
+    if (onClickHandler) className += ` ${styles['click-item']}`;
     if (newClassName) className += ` ${newClassName}`;
     return className;
-  }, [newClassName, onCkickHandler]);
+  }, [newClassName, onClickHandler]);
 
   return (
-    <Typography variant="body2" component="li" className={classNames} onClick={onCkickHandler}>
-      {text} {onCkickHandler && <ArrowRight />}
+    <Typography variant="body2" component="li" className={classNames} onClick={onClickHandler}>
+      {text} {onClickHandler && <ArrowRight />}
     </Typography>
   );
 }
