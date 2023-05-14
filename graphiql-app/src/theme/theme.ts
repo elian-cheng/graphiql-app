@@ -45,6 +45,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: Colors.SECONDARY_MAIN,
+          filter: `drop-shadow(0px 0px 1px rgba(250,250,250,0.1))`,
           '&:hover': {
             filter: `drop-shadow(0px 0px 5px ${Colors.SECONDARY_HOVER})`,
             // textShadow: '0px 0px 10px #00FF00',

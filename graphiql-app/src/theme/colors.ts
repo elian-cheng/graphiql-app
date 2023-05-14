@@ -12,6 +12,7 @@ const COLORS = {
   ACCENT: '#e632ad', //purple
   LINEAR_GRADIENT: 'linear-gradient(to bottom, #01123e, #39527c)',
   DARK_GREY: '#212328',
+  BACKGROUND_GREY: '#18191b',
 };
 
 export default COLORS;

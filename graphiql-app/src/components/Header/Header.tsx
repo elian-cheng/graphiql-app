@@ -112,7 +112,7 @@ export default function Header(props: Props) {
                 viewBox="0 0 29.999 30"
                 pointsAtZ={1000}
                 fill={COLORS.SECONDARY_MAIN}
-                style={{ flexGrow: 1, verticalAlign: 'middle' }}
+                // style={{ flexGrow: 1, verticalAlign: 'middle' }}
               >
                 <path d="M4.08 22.864l-1.1-.636L15.248.98l1.1.636z" />
                 <path d="M2.727 20.53h24.538v1.272H2.727z" />
