@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import { Header } from '../../Header';
+import { NavLink } from 'react-router-dom';
+import Header from '../../Header';
+import * as Icons from '@mui/icons-material';
 
-import { Button } from '@mui/material';
+import { Box, MenuItem, Menu } from '@mui/material';
 import { useAuth } from '../../../../contexts/Auth.context';
 
 const NonAuthHeader = () => {
@@ -9,21 +10,26 @@ const NonAuthHeader = () => {
 
   return (
     <Header>
-      <Link to="/sign-in">
-        <Button variant="text" size="small" color="inherit" onClick={() => signUp(false)}>
-          Log In
-        </Button>
-      </Link>
-      <Button
-        href="#"
-        variant="outlined"
-        size="small"
-        color="inherit"
-        onClick={() => signUp(true)}
-        sx={{ marginLeft: '15px' }}
+      <Box
+        component={'ul'}
+        sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
-        Sign Up
-      </Button>
+        <MenuItem>
+          <NavLink to="/">
+            <Icons.Home sx={{ verticalAlign: 'middle' }} />
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink to="/sign-in" onClick={() => signUp(false)}>
+            Login
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink to="/sign-in#" onClick={() => signUp(true)}>
+            Sign Up
+          </NavLink>
+        </MenuItem>
+      </Box>
     </Header>
   );
 };
