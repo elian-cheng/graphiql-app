@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useState, Suspense, useRef } from 'react';
+import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import { IconButton, Container, CircularProgress, Divider } from '@mui/material';
 import { PlayArrow, ArrowDropDown } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
+import { setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
 import { useSchemaDocumentation } from '../../contexts';
-
-import CodeMirror from '@uiw/react-codemirror';
-import { langs } from '@uiw/codemirror-extensions-langs';
-import { syntaxHighlighting } from '@codemirror/language';
-import { myHighlightStyle, baseTheme } from './components/Editor/editorStyles';
+import Editor from './components/Editor/Editor';
 
 import styles from './GraphiQL.module.scss';
 
@@ -81,22 +77,7 @@ function GraphiQL() {
     <Container className={styles['graph-main-block']}>
       <div className={styles['editor-block']}>
         <div className={styles['query-block']}>
-          <CodeMirror
-            autoFocus={true}
-            value={query ? query : `{\n \n }`}
-            height="200px"
-            basicSetup={{
-              foldGutter: false,
-              dropCursor: false,
-              allowMultipleSelections: false,
-              indentOnInput: false,
-            }}
-            extensions={[langs.json(), baseTheme, syntaxHighlighting(myHighlightStyle)]}
-            className={styles.mirror}
-            onChange={(event) => {
-              dispatch(setQuery(event));
-            }}
-          />
+          <Editor></Editor>
           <div className={styles['command-panel']}>
             <IconButton className={styles['btn-start']} color="success" onClick={onClickHandler}>
               <PlayArrow sx={{ fontSize: 20 }} />

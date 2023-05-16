@@ -7,8 +7,9 @@
   left: 0;
   z-index: 99;
   backdrop-filter: blur(10px);
-  background-color: rgba($color: #172e4a, $alpha: 0.8);
+  background: linear-gradient(to bottom, #09090a, #151618, #1d1f21, #1c1e23);
   box-shadow: 0 2px 16px rgba(133, 133, 133, 0.1);
+  color: white;
 }
 
 .logo-img {

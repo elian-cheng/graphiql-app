@@ -13,6 +13,7 @@ const COLORS = {
   LINEAR_GRADIENT: 'linear-gradient(to bottom, #01123e, #39527c)',
   DARK_GREY: '#212328',
   BACKGROUND_GREY: '#18191b',
+  BLUE_SCHEMA: '#65d5d9',
 };
 
 export default COLORS;

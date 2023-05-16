@@ -5,17 +5,20 @@ import rs from '../../assets/svg/course.svg';
 import classes from './Footer.module.scss';
 import Box from '@mui/material/Box';
 import Member from './components/Member/Member';
+import Colors from '../../theme/colors';
 
 function Footer() {
   return (
     <Box
       // color="#c5c6c7"
       sx={{
-        backgroundColor: '#f1f1f1',
-        height: '125px',
+        background: 'linear-gradient(to bottom, #09090a, #151618, #1d1f21, #1c1e23)',
+        height: '100px',
         px: '60px',
-        paddingBottom: '30px',
+        paddingBottom: '20px',
         display: 'flex',
+        color: 'white',
+        borderTop: `${Colors.SECONDARY_MAIN} 1px solid`,
       }}
       component="footer"
     >
