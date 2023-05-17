@@ -6,8 +6,11 @@ import classes from './Footer.module.scss';
 import Box from '@mui/material/Box';
 import Member from './components/Member/Member';
 import Colors from '../../theme/colors';
+import { useTranslation } from 'react-i18next';
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <Box
       // color="#c5c6c7"
@@ -44,7 +47,7 @@ function Footer() {
               variant="h6"
               sx={{ textTransform: 'capitalize', whiteSpace: 'nowrap', paddingRight: '17px' }}
             >
-              The Team
+              {t('team')}
             </Typography>
             <Box className={classes.line}></Box>
           </Box>

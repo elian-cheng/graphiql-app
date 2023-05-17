@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../../contexts';
 import Header from '../../Header';
 import * as Icons from '@mui/icons-material';
@@ -8,6 +8,7 @@ import { MenuItem, Box, Typography } from '@mui/material';
 
 const AuthHeader = () => {
   const authCtx = useAuth();
+  const { t } = useTranslation();
 
   const logoutHandler = () => {
     authCtx.logout();
@@ -19,14 +20,14 @@ const AuthHeader = () => {
         <MenuItem>
           <NavLink to="/">
             <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
-              Home
+              {t('home')}
             </Typography>
           </NavLink>
         </MenuItem>
         <MenuItem>
           <NavLink to="/graphiql">
             <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
-              Main
+              {t('editor')}
             </Typography>
           </NavLink>
         </MenuItem>

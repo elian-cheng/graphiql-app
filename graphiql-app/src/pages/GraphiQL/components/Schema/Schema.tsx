@@ -4,6 +4,7 @@ import { SchemaListItem, SchemaWindow } from '../';
 import { useSchemaDocumentation } from '../../../../contexts';
 import { SchemaType } from 'types/SchemaType';
 import schemaGetType from '../../../../utils/SchemaGetType';
+import { useTranslation } from 'react-i18next';
 
 import styles from './Schema.module.scss';
 
@@ -14,6 +15,7 @@ interface SchemaProps {
 function Schema({ schema }: SchemaProps) {
   const { schemaStack, pushToStack } = useSchemaDocumentation();
   const [isActiveSchema, setIsActiveSchema] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div
@@ -25,7 +27,7 @@ function Schema({ schema }: SchemaProps) {
         {schemaStack.length === 0 && (
           <div className={styles['queries-block']}>
             <Typography variant="h6" className={styles['title']}>
-              Queries
+              {t('Queries')}
             </Typography>
             <Divider />
             <ul>
@@ -36,7 +38,7 @@ function Schema({ schema }: SchemaProps) {
                     <SchemaListItem
                       key={idx}
                       text={`${field.name}(...): ${schemaGetType(field.type)[0]}`}
-                      onCkickHandler={() =>
+                      onClickHandler={() =>
                         pushToStack({
                           name: field.name,
                           description: field.description,
@@ -53,7 +55,7 @@ function Schema({ schema }: SchemaProps) {
         {schemaStack.length > 0 && <SchemaWindow />}
       </div>
       <div className={styles['toggle-btn']} onClick={() => setIsActiveSchema((prev) => !prev)}>
-        Schema
+        {t('Schema')}
       </div>
     </div>
   );

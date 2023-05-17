@@ -1,12 +1,13 @@
-import { NavLink } from 'react-router-dom';
 import Header from '../../Header';
+import { NavLink } from 'react-router-dom';
 import * as Icons from '@mui/icons-material';
-
-import { Box, MenuItem, Menu } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Box, MenuItem } from '@mui/material';
 import { useAuth } from '../../../../contexts/Auth.context';
 
 const NonAuthHeader = () => {
   const { signUp } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <Header>
@@ -21,12 +22,12 @@ const NonAuthHeader = () => {
         </MenuItem>
         <MenuItem>
           <NavLink to="/sign-in" onClick={() => signUp(false)}>
-            Login
+            {t('login')}
           </NavLink>
         </MenuItem>
         <MenuItem>
           <NavLink to="/sign-in#" onClick={() => signUp(true)}>
-            Sign Up
+            {t('signup')}
           </NavLink>
         </MenuItem>
       </Box>

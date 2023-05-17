@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +13,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import classes from './Header.module.scss';
 import COLORS from '../../theme/colors';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
 interface Props {
   children:
     | string
@@ -25,8 +28,6 @@ interface Props {
   wind?: () => Window;
 }
 
-const drawerWidth = 240;
-
 export default function Header(props: Props) {
   const { wind } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -35,6 +36,9 @@ export default function Header(props: Props) {
     setMobileOpen((prevState) => !prevState);
   };
   const [isSticky, setIsSticky] = useState(false);
+  const {
+    i18n: { changeLanguage },
+  } = useTranslation();
 
   useEffect(() => {
     function handleScroll() {
@@ -84,6 +88,10 @@ export default function Header(props: Props) {
   );
 
   const container = wind !== undefined ? () => wind().document.body : undefined;
+  const changeLanguageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newLanguage = e.target.checked ? 'en' : 'ru';
+    changeLanguage(newLanguage);
+  };
 
   return (
     <header className={`${classes.header} ${isSticky ? classes['header__sticky'] : ''}`}>
@@ -147,11 +155,12 @@ export default function Header(props: Props) {
             }}
             sx={{
               display: { xs: 'block', sm: 'none' },
-              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+              '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
             }}
           >
             {drawer}
           </Drawer>
+          <LanguageSwitcher onChangeLanguage={changeLanguageHandler} />
         </Box>
       </Box>
     </header>
