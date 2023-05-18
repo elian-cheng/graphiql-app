@@ -3,6 +3,7 @@ import Colors from './colors';
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       main: Colors.PRIMARY_MAIN,
       dark: Colors.PRIMARY_DARK,
@@ -10,12 +11,30 @@ const theme = createTheme({
       contrastText: Colors.PRIMARY_CONTR_TEXT,
     },
     secondary: {
-      main: Colors.SECONDARY_MAIN,
+      main: 'red',
       dark: Colors.SECONDARY_DARK,
       contrastText: Colors.SECONDARY_CONTR_TEXT,
     },
   },
   components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          background: Colors.PRIMARY_DARK,
+          color: Colors.PRIMARY_CONTR_TEXT,
+          boxShadow: 'none',
+          WebkitBoxShadow: 'none',
+        },
+      },
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          background: Colors.PRIMARY_DARK,
+          color: Colors.PRIMARY_CONTR_TEXT,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -31,6 +50,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: Colors.SECONDARY_MAIN,
+          fill: 'red',
           '&:hover': {
             textShadow: `0px 0px 10px ${Colors.SECONDARY_HOVER}`,
             filter: `drop-shadow(0px 0px 10px ${Colors.SECONDARY_HOVER})`,
@@ -48,8 +68,6 @@ const theme = createTheme({
           filter: `drop-shadow(0px 0px 1px rgba(250,250,250,0.1))`,
           '&:hover': {
             filter: `drop-shadow(0px 0px 5px ${Colors.SECONDARY_HOVER})`,
-            // textShadow: '0px 0px 10px #00FF00',
-            // filter: `drop-shadow(0px 0px 10px ${Colors.SECONDARY_HOVER})`,
           },
         },
       },
@@ -70,7 +88,14 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: 'inherit',
+          backgroundColor: 'red',
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          color: 'white',
         },
       },
     },

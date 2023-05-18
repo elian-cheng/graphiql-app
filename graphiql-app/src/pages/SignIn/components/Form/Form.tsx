@@ -133,10 +133,9 @@ const Form: React.FC = () => {
         borderRadius: '6px',
         width: '95%',
         maxWidth: '35rem',
-        boxShadow: ' 0 1px 4px rgba(0, 0, 0, 0.2)',
       }}
     >
-      <Avatar sx={{ color: 'white', backgroundColor: '#172e4a' }}>
+      <Avatar>
         <LockOutlined />
       </Avatar>
       <Typography component="h2" variant="h4" sx={{ my: '.5rem' }}>
@@ -173,18 +172,13 @@ const Form: React.FC = () => {
         />
 
         <FormControlLabel
-          control={<Checkbox {...register('showPassword')} color="primary" />}
+          control={<Checkbox {...register('showPassword')} />}
           label={t('Show password')}
           sx={{ my: '1rem' }}
         />
 
         {!isLoading && (
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ color: 'white', backgroundColor: '#172e4a', py: '.8rem' }}
-          >
+          <Button type="submit" fullWidth variant="contained" sx={{ py: '.8rem' }}>
             {isLogin ? t('Sign In') : t('Sign Up')}
           </Button>
         )}

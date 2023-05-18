@@ -7,6 +7,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 :root {
   --color-black: #0b0c10;
   --color-blue-dark: #172e4a;
@@ -16,6 +17,7 @@ a {
   --color-white: #ffffff;
   --color-bggrey: #18191b;
   --color-cyanText: #73cfc8;
+  --BACKGR_GREY: #18191b;
   --PRIMARY_DARK: '#0B0C10', //almost black
   --PRIMARY_MAIN: '#01123e', //royal blue
   --PRIMARY_LIGHT: '#C5C6C7', //light grey
@@ -28,5 +30,5 @@ a {
 
   --ACCENT: '#e632ad', //purple
   --LINEAR_GRADIENT: 'linear-gradient(to bottom, #01123e, #39527c)',
-  --BACKGR_GREY: '#18191b',
+    --BACKGR_GREY: '#18191b',
 }

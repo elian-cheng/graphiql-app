@@ -1,36 +1,41 @@
-import { setQuery } from '../../../../redux/graphQLSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../../../../redux/store';
-
+import React, { useEffect, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-// import { syntaxHighlighting } from '@codemirror/language';
 import { graphql } from 'cm6-graphql';
-import { myHighlightStyle, baseTheme } from './editorStyles';
-import { EditorState } from '@codemirror/state';
-import { EditorView, lineNumbers } from '@codemirror/view';
+import { baseTheme } from './editorStyles';
+import { lineNumbers } from '@codemirror/view';
 import { history } from '@codemirror/commands';
 import { autocompletion, closeBrackets } from '@codemirror/autocomplete';
 import { bracketMatching, syntaxHighlighting } from '@codemirror/language';
-import { oneDarkHighlightStyle, oneDark } from '@codemirror/theme-one-dark';
-import { useSchemaDocumentation } from '../../../../contexts';
+import { oneDarkHighlightStyle } from '@codemirror/theme-one-dark';
+import { GraphQLSchema } from 'graphql';
+import { useThemeSwitcher } from '../../../../contexts';
+import { lightEditorTheme } from './lightEditorTheme';
 
 import styles from './Editor.module.scss';
-import { TestSchema } from './TestSchema';
-import { useEffect, useState } from 'react';
+import { useSchemaDocumentation } from '../../../../contexts/SchemaDocumentation.context';
 
-const Editor = () => {
-  const query = useSelector((state: RootState) => state.graphQL.query);
-  const { schema, loadSchemaFromServer } = useSchemaDocumentation();
+const Editor = (props: { query: string; onChangeHandler: (value: string) => void }) => {
+  const { isDark } = useThemeSwitcher();
+  const { schema } = useSchemaDocumentation();
+  const [isEditorDark, setEditorTheme] = useState(isDark);
 
   useEffect(() => {
-    console.log(schema);
-  }, [schema]);
+    setEditorTheme(isDark);
+  }, [isDark]);
 
-  const dispatch = useDispatch();
+  const currentTheme = isEditorDark ? baseTheme : lightEditorTheme;
+
+  const TestSchema = new GraphQLSchema({
+    // query: schema?.queryType,
+    mutation: schema?.mutationType,
+    subscription: schema?.subscriptionType,
+    directives: schema?.directives,
+  });
+
   return (
     <CodeMirror
       autoFocus={true}
-      value={query ? query : ``}
+      value={props.query ? props.query : ``}
       height="200px"
       basicSetup={{
         foldGutter: false,
@@ -39,13 +44,12 @@ const Editor = () => {
         indentOnInput: false,
       }}
       extensions={[
-        baseTheme,
+        currentTheme,
         bracketMatching(),
         closeBrackets(),
         history(),
         autocompletion(),
         lineNumbers(),
-        // oneDark,
         syntaxHighlighting(oneDarkHighlightStyle),
         graphql(TestSchema, {
           onShowInDocs(field, type, parentType) {
@@ -58,7 +62,7 @@ const Editor = () => {
       ]}
       className={styles.mirror}
       onChange={(event) => {
-        dispatch(setQuery(event));
+        props.onChangeHandler(event);
       }}
     />
   );
