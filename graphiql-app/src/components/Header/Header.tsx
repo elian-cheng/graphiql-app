@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
+  CssBaseline,
   Divider,
   Drawer,
   IconButton,
   List,
   Toolbar,
   Typography,
-  CssBaseline,
   Box,
   AppBar,
 } from '@mui/material';
@@ -100,6 +100,7 @@ export default function Header(props: Props) {
   const changeLanguageHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newLanguage = e.target.checked ? 'en' : 'ru';
     changeLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage);
   };
 
   return (

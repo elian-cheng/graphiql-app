@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import rs from '../../assets/svg/course.svg';
 import classes from './Footer.module.scss';
-import Box from '@mui/material/Box';
 import Member from './components/Member/Member';
 import Colors from '../../theme/colors';
 import { useTranslation } from 'react-i18next';
