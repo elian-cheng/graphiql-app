@@ -31,7 +31,7 @@ import {
 // Test Schema
 
 export const TestEnum = new GraphQLEnumType({
-  name: 'TestEnum',
+  name: '',
   values: {
     RED: {},
     GREEN: {},

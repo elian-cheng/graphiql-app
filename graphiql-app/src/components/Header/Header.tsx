@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -21,6 +21,7 @@ import COLORS from '../../theme/colors';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
 import { useThemeSwitcher } from '../../contexts/index';
+import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
 interface Props {
   children:
     | string
@@ -38,8 +39,7 @@ export default function Header(props: Props) {
   const { wind } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const themeInp = useRef(null);
-  const { themeSwitcher, isDark } = useThemeSwitcher();
+  const { isDark } = useThemeSwitcher();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -156,7 +156,7 @@ export default function Header(props: Props) {
               <nav>{props.children}</nav>
             </Box>
             <LanguageSwitcher onChangeLanguage={changeLanguageHandler} />
-            <input type="checkbox" ref={themeInp} onChange={themeSwitcher}></input>
+            <ThemeSwitcher></ThemeSwitcher>
           </Toolbar>
         </AppBar>
         <Box component="nav">

@@ -11,7 +11,7 @@ const theme = createTheme({
       contrastText: Colors.PRIMARY_CONTR_TEXT,
     },
     secondary: {
-      main: 'red',
+      main: Colors.SECONDARY_MAIN,
       dark: Colors.SECONDARY_DARK,
       contrastText: Colors.SECONDARY_CONTR_TEXT,
     },

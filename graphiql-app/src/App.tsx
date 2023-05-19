@@ -3,8 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { useThemeSwitcher } from './contexts';
 import Routing from './routing';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import theme from './theme/theme';
-// import styles from './App.module.scss';
+import Colors from './theme/colors';
 
 function App() {
   const { isDark } = useThemeSwitcher();
@@ -14,6 +13,9 @@ function App() {
       createTheme({
         palette: {
           mode: isDark ? 'dark' : 'light',
+          secondary: {
+            main: Colors.SECONDARY_MAIN,
+          },
         },
       }),
     [isDark]

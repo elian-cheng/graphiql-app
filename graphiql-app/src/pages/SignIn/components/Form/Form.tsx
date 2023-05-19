@@ -112,7 +112,7 @@ const Form: React.FC = () => {
       .then((data) => {
         const expirationTime = new Date(new Date().getTime() + +data.expiresIn * 1000);
         authCtx.login(data.idToken, expirationTime.toISOString());
-        navigate('/', { replace: true });
+        navigate('/graphiql', { replace: true });
       })
       .catch((err) => {
         alert(err.message);
