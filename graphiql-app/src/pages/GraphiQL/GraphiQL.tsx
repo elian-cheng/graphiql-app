@@ -7,8 +7,15 @@ import { useSchemaDocumentation, useThemeSwitcher } from '../../contexts';
 import { useTranslation } from 'react-i18next';
 import { Editor, Tab } from './components';
 
-import { useTheme } from '@mui/material/styles';
-import { IconButton, Container, CircularProgress, Divider, Box, Typography } from '@mui/material';
+import {
+  IconButton,
+  Container,
+  CircularProgress,
+  Divider,
+  Box,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { PlayArrow, ArrowDropDown, CleaningServices } from '@mui/icons-material';
 
 import styles from './GraphiQL.module.scss';

@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { useThemeSwitcher } from './contexts';
 import Routing from './routing';
 import Colors from './theme/colors';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 function App() {
   const { isDark } = useThemeSwitcher();
