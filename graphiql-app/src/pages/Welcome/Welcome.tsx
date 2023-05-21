@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { Container, Link, Typography } from '@mui/material';
+import { useThemeSwitcher } from '../../contexts';
 import { AvatarCom } from './components';
 import { Trans, useTranslation } from 'react-i18next';
-import { useThemeSwitcher } from '../../contexts';
+import { Container, Link, Typography } from '@mui/material';
 
 import styles from './Welcome.module.scss';
 

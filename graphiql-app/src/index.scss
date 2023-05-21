@@ -18,17 +18,19 @@ a {
   --color-bggrey: #18191b;
   --color-cyanText: #73cfc8;
   --BACKGR_GREY: #18191b;
-  --PRIMARY_DARK: '#0B0C10', //almost black
-  --PRIMARY_MAIN: '#01123e', //royal blue
-  --PRIMARY_LIGHT: '#C5C6C7', //light grey
-  --PRIMARY_CONTR_TEXT: '#fff',
 
-  --SECONDARY_MAIN: '#66FCF1', //bright blue
-  --SECONDARY_DARK: '#45A29E', //dark blue
-  --SECONDARY_CONTR_TEXT: '#fff',
-  --SECONDARY_HOVER: '#f2ffff', //very light blue
+    ::-webkit-scrollbar-track {
+    background-color: #000;
+  }
 
-  --ACCENT: '#e632ad', //purple
-  --LINEAR_GRADIENT: 'linear-gradient(to bottom, #01123e, #39527c)',
-    --BACKGR_GREY: '#18191b',
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-cyanText);
+    border-radius: 5px;
+  }
+
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-cyan);
+  }
 }

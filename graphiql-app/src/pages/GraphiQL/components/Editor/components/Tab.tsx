@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { Button } from '@mui/material';
 import COLORS from '../../../../../theme/colors';
 import { useThemeSwitcher } from '../../../../../contexts';
+import { Button } from '@mui/material';
 
 function Tab(props: { value: boolean; fn: () => void; children: ReactNode }) {
   const { isDark } = useThemeSwitcher();

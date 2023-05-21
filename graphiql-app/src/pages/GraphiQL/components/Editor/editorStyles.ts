@@ -47,6 +47,6 @@ export const baseTheme = EditorView.theme(
 );
 
 export const myHighlightStyle = HighlightStyle.define([
-  { tag: tags.bracket, color: Colors.SECONDARY_MAIN },
-  { tag: tags.comment, color: '#f5d', fontStyle: 'italic' },
+  { tag: tags.brace, color: Colors.SECONDARY_DARK },
+  { tag: tags.bracket, color: Colors.SECONDARY_DARK },
 ]);

@@ -2,6 +2,7 @@ import { EditorView } from '@codemirror/view';
 import { tags } from '@lezer/highlight';
 import { HighlightStyle } from '@codemirror/language';
 import Colors from '../../../../theme/colors';
+import COLORS from '../../../../theme/colors';
 
 export const lightEditorTheme = EditorView.theme(
   {
@@ -47,6 +48,6 @@ export const lightEditorTheme = EditorView.theme(
 );
 
 export const myHighlightStyle = HighlightStyle.define([
-  { tag: tags.bracket, color: Colors.SECONDARY_MAIN },
-  { tag: tags.comment, color: '#f5d', fontStyle: 'italic' },
+  { tag: tags.brace, color: COLORS.SECONDARY_DARK },
+  { tag: tags.bracket, color: COLORS.SECONDARY_DARK },
 ]);

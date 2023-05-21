@@ -1,3 +1,12 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth, useThemeSwitcher } from '../../../../contexts';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import COLORS from './../../../../theme/colors';
+import { LockOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -9,14 +18,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../../contexts';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { LockOutlined } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next';
 
 interface IFormData {
   email: string;
@@ -33,6 +34,7 @@ const Form: React.FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t } = useTranslation();
+  const { isDark } = useThemeSwitcher();
 
   useEffect(() => {
     setIsLogin(() => !ifToSignUpProv);
@@ -178,7 +180,16 @@ const Form: React.FC = () => {
         />
 
         {!isLoading && (
-          <Button type="submit" fullWidth variant="contained" sx={{ py: '.8rem' }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{
+              py: '.8rem',
+              backgroundColor: `${isDark ? COLORS.SECONDARY_DARK : COLORS.SECONDARY_DARK}`,
+              color: 'white',
+            }}
+          >
             {isLogin ? t('Sign In') : t('Sign Up')}
           </Button>
         )}

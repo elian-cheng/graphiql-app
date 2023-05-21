@@ -15,6 +15,10 @@
   &.active {
     transform: translate(0, 0);
   }
+    ::-webkit-scrollbar {
+    width: 10px;
+  }
+
 }
 
 .title {

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Typography, Divider, Box, colors } from '@mui/material';
 import { SchemaListItem, SchemaWindow } from '../';
 import { useSchemaDocumentation } from '../../../../contexts';
 import { SchemaType } from 'types/SchemaType';
 import schemaGetType from '../../../../utils/SchemaGetType';
 import { useTranslation } from 'react-i18next';
 import { useThemeSwitcher } from '../../../../contexts';
-import COLORS from './../../../../theme/colors';
 
 import styles from './Schema.module.scss';
+import COLORS from './../../../../theme/colors';
+import { Typography, Divider, Box } from '@mui/material';
 
 interface SchemaProps {
   schema: SchemaType;

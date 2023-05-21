@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useThemeSwitcher } from '../../contexts/index';
 import COLORS from '../../theme/colors';
 
-function Footer() {
+export default function Footer() {
   const { t } = useTranslation();
   const { isDark } = useThemeSwitcher();
 
@@ -77,5 +77,3 @@ function Footer() {
     </Box>
   );
 }
-
-export default Footer;

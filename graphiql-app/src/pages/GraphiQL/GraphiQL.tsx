@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState, Suspense } from 'react';
-import { IconButton, Container, CircularProgress, Divider, Box, Typography } from '@mui/material';
-import { PlayArrow, ArrowDropDown, CleaningServices } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { setVariables, setHeaders, setResponse, setQuery } from '../../redux/graphQLSlice';
 import { useSchemaDocumentation, useThemeSwitcher } from '../../contexts';
 import { useTranslation } from 'react-i18next';
-import Editor from './components/Editor/Editor';
 import { useTheme } from '@mui/material/styles';
-import Tab from './components/Editor/components/Tab';
+import { Editor, Tab } from './components';
+import { IconButton, Container, CircularProgress, Divider, Box, Typography } from '@mui/material';
+import { PlayArrow, ArrowDropDown, CleaningServices } from '@mui/icons-material';
 
 import styles from './GraphiQL.module.scss';
 import COLORS from '../../theme/colors';
