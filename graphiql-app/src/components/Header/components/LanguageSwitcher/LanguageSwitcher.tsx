@@ -51,5 +51,8 @@ interface ILanguageSwitcher {
 }
 
 export default function LanguageSwitcher(props: ILanguageSwitcher) {
-  return <MaterialUISwitch defaultChecked sx={{ m: 1 }} onChange={props.onChangeLanguage} />;
+  const language = localStorage.getItem('language') || 'en';
+  return (
+    <MaterialUISwitch checked={language === 'en'} sx={{ m: 1 }} onChange={props.onChangeLanguage} />
+  );
 }
