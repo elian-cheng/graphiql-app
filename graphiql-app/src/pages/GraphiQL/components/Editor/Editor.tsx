@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useThemeSwitcher } from '../../../../contexts';
+
 import CodeMirror from '@uiw/react-codemirror';
 import { lineNumbers } from '@codemirror/view';
 import { history } from '@codemirror/commands';
@@ -7,10 +8,9 @@ import { autocompletion, closeBrackets } from '@codemirror/autocomplete';
 import { bracketMatching, syntaxHighlighting } from '@codemirror/language';
 import { json } from '@codemirror/lang-json';
 
-import { lightEditorTheme } from './lightEditorTheme';
-import { myHighlightStyle } from './editorStyles';
 import styles from './Editor.module.scss';
-import { baseTheme } from './editorStyles';
+
+import { lightEditorTheme, myHighlightStyle, baseTheme } from './components';
 
 const Editor = (props: { query: string; onChangeHandler: (value: string) => void }) => {
   const { isDark } = useThemeSwitcher();

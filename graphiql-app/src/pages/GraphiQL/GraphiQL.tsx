@@ -5,8 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setVariables, setHeaders, setResponse, setQuery } from '../../redux/graphQLSlice';
 import { useSchemaDocumentation, useThemeSwitcher } from '../../contexts';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '@mui/material/styles';
 import { Editor, Tab } from './components';
+
+import { useTheme } from '@mui/material/styles';
 import { IconButton, Container, CircularProgress, Divider, Box, Typography } from '@mui/material';
 import { PlayArrow, ArrowDropDown, CleaningServices } from '@mui/icons-material';
 

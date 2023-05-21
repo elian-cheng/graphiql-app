@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { SchemaListItem, SchemaWindow } from '../';
-import { useSchemaDocumentation } from '../../../../contexts';
+import { useSchemaDocumentation, useThemeSwitcher } from '../../../../contexts';
 import { SchemaType } from 'types/SchemaType';
 import schemaGetType from '../../../../utils/SchemaGetType';
 import { useTranslation } from 'react-i18next';
-import { useThemeSwitcher } from '../../../../contexts';
 
 import styles from './Schema.module.scss';
 import COLORS from './../../../../theme/colors';

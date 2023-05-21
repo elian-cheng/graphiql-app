@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
 import rs from '../../assets/svg/course.svg';
 import classes from './Footer.module.scss';
-import Member from './components/Member/Member';
+import { Member } from './components';
 import Colors from '../../theme/colors';
 import { useTranslation } from 'react-i18next';
-import { useThemeSwitcher } from '../../contexts/index';
-import COLORS from '../../theme/colors';
+import { useThemeSwitcher } from '../../contexts';
+import { Box, Typography } from '@mui/material';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -46,7 +45,7 @@ export default function Footer() {
             alignItems: 'center',
           }}
           className={classes['team-members-wrap']}
-          color={isDark ? COLORS.PRIMARY_CONTR_TEXT : COLORS.SECONDARY_DARK}
+          color={isDark ? Colors.PRIMARY_CONTR_TEXT : Colors.SECONDARY_DARK}
         >
           <Box
             sx={{ display: 'flex', width: '100%', alignItems: 'center' }}

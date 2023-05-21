@@ -1,12 +1,12 @@
 import { EditorView } from '@codemirror/view';
 import { tags } from '@lezer/highlight';
 import { HighlightStyle } from '@codemirror/language';
-import Colors from '../../../../theme/colors';
-import COLORS from '../../../../theme/colors';
+import Colors from '../../../../../theme/colors';
 
-export const lightEditorTheme = EditorView.theme(
+export const baseTheme = EditorView.theme(
   {
     '&': {
+      color: Colors.PRIMARY_CONTR_TEXT,
       'min-width': '100%',
       'min-height': '100%',
     },
@@ -15,23 +15,22 @@ export const lightEditorTheme = EditorView.theme(
       'min-height': '100%',
     },
     '.cm-scroller': {
-      background: `${Colors.LIGHT_GREY}`,
+      background: `${Colors.PRIMARY_DARK}`,
     },
     '.cm-gutters': {
-      backgroundColor: '#b4b4b4',
-      color: Colors.SECONDARY_DARK,
+      backgroundColor: '#000',
+      color: '#000',
       border: 'none',
     },
     '.cm-gutter': {},
     '.cm-gutterElement': {
-      color: Colors.ACTIVE_TAB,
+      color: Colors.DARK_GREY,
     },
     '.cm-activeLineGutter': {
       color: Colors.SECONDARY_DARK,
-      backgroundColor: Colors.SECONDARY_MAIN,
     },
     '.cm-content': {
-      caretColor: '#b4b4b4',
+      caretColor: '#0e9',
     },
     '.cm-line': {},
     '&.cm-focused .cm-cursor': {
@@ -39,15 +38,15 @@ export const lightEditorTheme = EditorView.theme(
     },
     '.cm-selectionLayer': {},
     '&.cm-focused .cm-selectionBackground, ::selection': {
-      backgroundColor: 'white',
+      backgroundColor: '#074',
     },
     '.cm-cursorLayer': {},
     '.cm-cursor': {},
   },
-  { dark: false }
+  { dark: true }
 );
 
 export const myHighlightStyle = HighlightStyle.define([
-  { tag: tags.brace, color: COLORS.SECONDARY_DARK },
-  { tag: tags.bracket, color: COLORS.SECONDARY_DARK },
+  { tag: tags.brace, color: Colors.SECONDARY_DARK },
+  { tag: tags.bracket, color: Colors.SECONDARY_DARK },
 ]);

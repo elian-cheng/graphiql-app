@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -18,10 +17,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import classes from './Header.module.scss';
 import COLORS from '../../theme/colors';
 
+import { useThemeSwitcher } from '../../contexts';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher';
-import { useThemeSwitcher } from '../../contexts/index';
-import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
+import { ThemeSwitcher, LanguageSwitcher } from './components';
 interface Props {
   children:
     | string

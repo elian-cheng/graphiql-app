@@ -87,3 +87,19 @@
     margin-top: 20px;
   }
 }
+
+.textarea-block {
+  animation: slide-in 0.5s ease-out; /* Применение анимации с продолжительностью 0.5 секунды и функцией сглаживания ease-out */
+  transform: translateX(0);
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0; /* Начальная непрозрачность */
+    transform: translateX(-100%); /* Начальное положение за пределами экрана */
+  }
+  100% {
+    opacity: 1; /* Конечная непрозрачность */
+    transform: translateX(0); /* Конечное положение внутри экрана */
+  }
+}
