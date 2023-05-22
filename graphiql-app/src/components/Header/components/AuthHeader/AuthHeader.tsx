@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../../contexts';
-import { Header } from '../../Header';
-import LogoutIcon from '@mui/icons-material/Logout';
-import Button from '@mui/material/Button';
+import Header from '../../Header';
+import * as Icons from '@mui/icons-material';
+import { MenuItem, Box, Typography } from '@mui/material';
 
 const AuthHeader = () => {
   const authCtx = useAuth();
@@ -16,19 +16,27 @@ const AuthHeader = () => {
 
   return (
     <Header>
-      <Link to="/">
-        <Button variant="text" size="small" color="inherit">
-          {t('home')}
-        </Button>
-      </Link>
-      <Link to="/graphiql">
-        <Button variant="text" size="small" color="inherit" sx={{ marginLeft: '15px' }}>
-          {t('editor')}
-        </Button>
-      </Link>
-      <Link to="/sign-in" onClick={() => logoutHandler()} style={{ marginLeft: '15px' }}>
-        <LogoutIcon color="inherit" />
-      </Link>
+      <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <MenuItem>
+          <NavLink to="/">
+            <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
+              {t('home')}
+            </Typography>
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink to="/graphiql">
+            <Typography sx={{ verticalAlign: 'middle' }} component={'span'}>
+              {t('editor')}
+            </Typography>
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink to="/sign-in" onClick={logoutHandler}>
+            <Icons.Logout sx={{ verticalAlign: 'middle' }} />
+          </NavLink>
+        </MenuItem>
+      </Box>
     </Header>
   );
 };

@@ -1,14 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState, Suspense } from 'react';
-import { IconButton, Container, CircularProgress, Divider } from '@mui/material';
-import { PlayArrow, ArrowDropDown } from '@mui/icons-material';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { setQuery, setVariables, setHeaders, setResponse } from '../../redux/graphQLSlice';
-import { useSchemaDocumentation } from '../../contexts';
+import { setVariables, setHeaders, setResponse, setQuery } from '../../redux/graphQLSlice';
+import { useSchemaDocumentation, useThemeSwitcher } from '../../contexts';
 import { useTranslation } from 'react-i18next';
+import { Editor, Tab } from './components';
+
+import {
+  IconButton,
+  Container,
+  CircularProgress,
+  Divider,
+  Box,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import { PlayArrow, ArrowDropDown, CleaningServices } from '@mui/icons-material';
 
 import styles from './GraphiQL.module.scss';
+import COLORS from '../../theme/colors';
 
 const Schema = React.lazy(() => import('./components/Schema/Schema'));
 
@@ -34,6 +45,7 @@ function GraphiQL() {
   const [tabValue, setTabValue] = useState('');
   const [isError, setIsError] = useState(false);
   const { t } = useTranslation();
+  const { isDark } = useThemeSwitcher();
 
   useEffect(() => {
     loadSchemaFromServer(url);
@@ -73,68 +85,102 @@ function GraphiQL() {
       }
     }
   }, [dispatch, query, variables, headers]);
+  const theme = useTheme();
+
+  const [lastClicked, setLastClecked] = useState('');
+  const lastClickedHandler = (valeu: string) => {
+    setLastClecked(valeu);
+  };
 
   return (
     <Container className={styles['graph-main-block']}>
       <div className={styles['editor-block']}>
         <div className={styles['query-block']}>
-          <textarea
-            className={styles['textarea']}
-            value={query}
-            onChange={(event) => dispatch(setQuery(event.target.value))}
-          ></textarea>
-          <div className={styles['command-panel']}>
-            <IconButton className={styles['btn-start']} color="success" onClick={onClickHandler}>
+          <Editor query={query} onChangeHandler={(event) => dispatch(setQuery(event))}></Editor>
+          <Box className={styles['command-panel']} color="primary">
+            <IconButton className={styles['btn-start']} color="primary" onClick={onClickHandler}>
               <PlayArrow sx={{ fontSize: 20 }} />
             </IconButton>
-          </div>
+            <IconButton
+              className={styles['btn-start']}
+              color="primary"
+              onClick={() => {
+                dispatch(setQuery(''));
+              }}
+            >
+              <CleaningServices />
+            </IconButton>
+          </Box>
         </div>
         <Divider />
         <div className={styles['tab-block']}>
           <div className={styles['tab-panel']}>
-            <div className={styles['tab']} onClick={() => setTabValue('variables')}>
+            <Tab
+              value={lastClicked === 'vars'}
+              fn={() => {
+                lastClickedHandler('vars');
+                setTabValue('variables');
+              }}
+            >
               {t('Variables')}
-            </div>
-            <div className={styles['tab']} onClick={() => setTabValue('headers')}>
+            </Tab>
+            <Tab
+              value={lastClicked === 'headers'}
+              fn={() => {
+                lastClickedHandler('headers');
+                setTabValue('headers');
+              }}
+            >
               {t('Headers')}
-            </div>
+            </Tab>
             {tabValue !== '' && (
-              <div className={styles['btn-close']} onClick={() => setTabValue('')}>
+              <div
+                className={styles['btn-close']}
+                onClick={() => {
+                  setTabValue('');
+                  lastClickedHandler('');
+                }}
+              >
                 <ArrowDropDown />
               </div>
             )}
           </div>
           {tabValue === 'variables' && (
             <div className={styles['textarea-block']}>
-              <textarea
-                className={styles['textarea']}
-                value={variables}
-                onChange={(event) => dispatch(setVariables(event.target.value))}
-              ></textarea>
+              <Editor
+                query={variables}
+                onChangeHandler={(event) => dispatch(setVariables(event))}
+              ></Editor>
             </div>
           )}
           {tabValue === 'headers' && (
-            <div className={styles['textarea-block']}>
-              <textarea
-                className={styles['textarea']}
-                value={headers}
-                onChange={(event) => dispatch(setHeaders(event.target.value))}
-              ></textarea>
-            </div>
+            <Editor
+              query={headers}
+              onChangeHandler={(event) => dispatch(setHeaders(event))}
+            ></Editor>
           )}
         </div>
       </div>
-      <div className={styles['response-block']}>
+      <div
+        className={styles['response-block']}
+        style={{ backgroundColor: `${isDark ? COLORS.PRIMARY_DARK : COLORS.LIGHT_GREY}` }}
+      >
         {isLoaderGoing ? (
           <div className={styles['loader-block']}>
             <CircularProgress />
           </div>
         ) : (
-          <pre
-            className={!isError ? styles['response'] : `${styles['response']} ${styles['error']}`}
-          >
-            {response}
-          </pre>
+          <>
+            <Typography
+              component={'pre'}
+              sx={{
+                whiteSpace: 'pre-wrap',
+                color: `${isError ? theme.palette.error.dark : theme.palette.secondary.dark}`,
+              }}
+            >
+              {response}
+            </Typography>
+          </>
         )}
       </div>
       {schema && (

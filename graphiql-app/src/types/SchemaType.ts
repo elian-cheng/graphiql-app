@@ -1,3 +1,5 @@
+import { GraphQLObjectType } from 'graphql';
+
 type SEnumType = {
   name: string;
   description: string;
@@ -42,8 +44,6 @@ export type SchemaType = {
   types: SType[];
   subscriptionType: null;
   mutationType: null;
-  queryType: {
-    name: string;
-  };
+  queryType: GraphQLObjectType;
   directives: [];
 };

@@ -4,11 +4,9 @@
   align-items: center;
   
   padding: 6px 10px;
-  background-color: gray;
 
   &.click-item {
     justify-content: space-between;
     cursor: pointer;
-    background-color: red;
   }
 }

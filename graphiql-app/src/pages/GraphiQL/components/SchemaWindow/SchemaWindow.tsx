@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Typography, Divider } from '@mui/material';
+import { Typography, Divider, Button } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import schemaGetType from '../../../../utils/SchemaGetType';
 import { useSchemaDocumentation } from '../../../../contexts';
@@ -33,14 +33,14 @@ function SchemaWindow() {
   return (
     <div className={styles['schema-window-block']}>
       <div className={styles['control-panel']}>
-        <button className={styles['button']} onClick={popFromStack}>
+        <Button className={styles['button']} onClick={popFromStack}>
           <ArrowBack />
-        </button>
-        <button className={styles['button']} onClick={resetStack}>
+        </Button>
+        <Button className={styles['button']} onClick={resetStack}>
           <Typography className={styles['button-text']} variant="body2" component="span">
             Main
           </Typography>
-        </button>
+        </Button>
       </div>
       <div className={styles['schema-window-content']}>
         <Typography variant="body2" component="span" className={styles['first-text']}>

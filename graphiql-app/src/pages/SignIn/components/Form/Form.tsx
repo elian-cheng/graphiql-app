@@ -1,3 +1,12 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth, useThemeSwitcher } from '../../../../contexts';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import COLORS from './../../../../theme/colors';
+import { LockOutlined } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -9,14 +18,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../../contexts';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { LockOutlined } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next';
 
 interface IFormData {
   email: string;
@@ -33,6 +34,7 @@ const Form: React.FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t } = useTranslation();
+  const { isDark } = useThemeSwitcher();
 
   useEffect(() => {
     setIsLogin(() => !ifToSignUpProv);
@@ -112,7 +114,7 @@ const Form: React.FC = () => {
       .then((data) => {
         const expirationTime = new Date(new Date().getTime() + +data.expiresIn * 1000);
         authCtx.login(data.idToken, expirationTime.toISOString());
-        navigate('/', { replace: true });
+        navigate('/graphiql', { replace: true });
       })
       .catch((err) => {
         alert(err.message);
@@ -133,10 +135,9 @@ const Form: React.FC = () => {
         borderRadius: '6px',
         width: '95%',
         maxWidth: '35rem',
-        boxShadow: ' 0 1px 4px rgba(0, 0, 0, 0.2)',
       }}
     >
-      <Avatar sx={{ color: 'white', backgroundColor: '#172e4a' }}>
+      <Avatar>
         <LockOutlined />
       </Avatar>
       <Typography component="h2" variant="h4" sx={{ my: '.5rem' }}>
@@ -173,7 +174,7 @@ const Form: React.FC = () => {
         />
 
         <FormControlLabel
-          control={<Checkbox {...register('showPassword')} color="primary" />}
+          control={<Checkbox {...register('showPassword')} />}
           label={t('Show password')}
           sx={{ my: '1rem' }}
         />
@@ -183,7 +184,11 @@ const Form: React.FC = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ color: 'white', backgroundColor: '#172e4a', py: '.8rem' }}
+            sx={{
+              py: '.8rem',
+              backgroundColor: `${isDark ? COLORS.SECONDARY_DARK : COLORS.SECONDARY_DARK}`,
+              color: 'white',
+            }}
           >
             {isLogin ? t('Sign In') : t('Sign Up')}
           </Button>

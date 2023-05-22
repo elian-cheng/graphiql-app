@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react';
-import { Container, Link, Typography } from '@mui/material';
+import { useThemeSwitcher } from '../../contexts';
 import { AvatarCom } from './components';
 import { Trans, useTranslation } from 'react-i18next';
+import { Container, Link, Typography } from '@mui/material';
 
 import styles from './Welcome.module.scss';
 
 function Welcome() {
   const { t } = useTranslation();
+  const { isDark } = useThemeSwitcher();
 
   const developers = useMemo(
     () => [
@@ -14,8 +16,7 @@ function Welcome() {
         avatar: 'src/assets/images/avatar_1.png',
         name: 'Anubic29',
       },
-      // Add Avatars
-      { avatar: '', name: 'Elenadatso' },
+      { avatar: 'src/assets/images/avatar.jpg', name: 'Elenadatso' },
       { avatar: 'src/assets/images/avatar_2.jpg', name: 'Elian-cheng' },
     ],
     []
@@ -65,7 +66,10 @@ function Welcome() {
               {t('welcome-text-3')}
             </Typography>
           </div>
-          <div className={styles['course-logo']}></div>
+          <div
+            style={{ filter: `${isDark ? 'invert(1)' : ''}` }}
+            className={styles['course-logo']}
+          ></div>
         </div>
       </section>
     </Container>

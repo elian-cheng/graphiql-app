@@ -1,6 +1,5 @@
 import { SMiniType } from '../types/SchemaType';
 
-// Get type from schema
 function schemaGetType(type: SMiniType) {
   let typeName = '';
   const typeKinds = [];
