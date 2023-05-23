@@ -172,6 +172,7 @@ function GraphiQL() {
         ) : (
           <div className={styles['pre-block']}>
             <Typography
+              className={styles['response']}
               component={'pre'}
               sx={{
                 whiteSpace: 'pre-wrap',

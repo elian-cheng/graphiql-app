@@ -32,17 +32,19 @@
   position: relative;
 
   .pre-block {
-    top: 0;
+    top: 50%;
     left: 0;
     position: absolute;
-    height: 100%;
+    height: 90%;
     width: 100%;
-    padding: 20px;
-    overflow-y: auto;
+    transform: translate(0, -50%);
+    padding: 0 20px;
+    overflow: auto;
   }
 
   .response {
-    white-space: pre-wrap;
+    white-space: pre;
+    width: fit-content;
   }
 }
 
@@ -90,9 +92,11 @@
     width: 88%;
   }
   .response-block {
+    width: 88%;
     margin-left: 0;
-    margin-right: 60px;
+    margin-right: auto;
     margin-top: 20px;
+    min-height: 250px;
   }
 }
 
