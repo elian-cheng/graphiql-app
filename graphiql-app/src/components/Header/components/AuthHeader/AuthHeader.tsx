@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../../contexts';
 import Header from '../../Header';
-import * as Icons from '@mui/icons-material';
+import { Logout } from '@mui/icons-material';
 import { MenuItem, Box, Typography } from '@mui/material';
 
 const AuthHeader = () => {
@@ -33,7 +33,7 @@ const AuthHeader = () => {
         </MenuItem>
         <MenuItem>
           <NavLink to="/sign-in" onClick={logoutHandler}>
-            <Icons.Logout sx={{ verticalAlign: 'middle' }} />
+            <Logout sx={{ verticalAlign: 'middle' }} />
           </NavLink>
         </MenuItem>
       </Box>

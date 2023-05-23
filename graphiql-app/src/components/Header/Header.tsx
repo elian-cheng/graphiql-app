@@ -13,7 +13,7 @@ import {
   AppBar,
 } from '@mui/material';
 
-import MenuIcon from '@mui/icons-material/Menu';
+import { Menu } from '@mui/icons-material';
 import classes from './Header.module.scss';
 import COLORS from '../../theme/colors';
 
@@ -120,7 +120,7 @@ export default function Header(props: Props) {
               onClick={handleDrawerToggle}
               sx={{ mr: 2, display: { sm: 'none' } }}
             >
-              <MenuIcon />
+              <Menu />
             </IconButton>
             <Box sx={{ marginRight: 'auto' }}>
               <Link to="/" style={{ display: 'flex' }}>
