@@ -170,7 +170,7 @@ function GraphiQL() {
             <CircularProgress />
           </div>
         ) : (
-          <>
+          <div className={styles['pre-block']}>
             <Typography
               component={'pre'}
               sx={{
@@ -180,7 +180,7 @@ function GraphiQL() {
             >
               {response}
             </Typography>
-          </>
+          </div>
         )}
       </div>
       {schema && (
