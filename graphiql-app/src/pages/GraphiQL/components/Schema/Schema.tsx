@@ -4,10 +4,10 @@ import { useSchemaDocumentation, useThemeSwitcher } from '../../../../contexts';
 import { SchemaType } from 'types/SchemaType';
 import schemaGetType from '../../../../utils/SchemaGetType';
 import { useTranslation } from 'react-i18next';
-
-import styles from './Schema.module.scss';
 import COLORS from './../../../../theme/colors';
 import { Typography, Divider, Box } from '@mui/material';
+
+import styles from './Schema.module.scss';
 
 interface SchemaProps {
   schema: SchemaType;

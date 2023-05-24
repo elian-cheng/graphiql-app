@@ -4,7 +4,6 @@
   padding: 15px 0;
   position: relative;
   overflow-x: hidden;
-    margin-right: '50px';
 }
 
 .editor-block {
@@ -28,13 +27,24 @@
 
 .response-block {
   flex: 1 1;
-  padding: 20px;
-  white-space: pre-wrap;
   margin-left: 50px;
-  white-space: pre-wrap;
+  overflow: hidden;
+  position: relative;
+
+  .pre-block {
+    top: 50%;
+    left: 0;
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    transform: translate(0, -50%);
+    padding: 0 20px;
+    overflow: auto;
+  }
 
   .response {
-    white-space: pre-wrap;
+    white-space: pre;
+    width: fit-content;
   }
 }
 
@@ -82,9 +92,11 @@
     width: 88%;
   }
   .response-block {
+    width: 88%;
     margin-left: 0;
-    margin-right: 60px;
+    margin-right: auto;
     margin-top: 20px;
+    min-height: 250px;
   }
 }
 

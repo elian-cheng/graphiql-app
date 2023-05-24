@@ -1,6 +1,6 @@
 import Header from '../../Header';
 import { NavLink } from 'react-router-dom';
-import * as Icons from '@mui/icons-material';
+import { Home } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { Box, MenuItem } from '@mui/material';
 import { useAuth } from '../../../../contexts/Auth.context';
@@ -17,7 +17,7 @@ const NonAuthHeader = () => {
       >
         <MenuItem>
           <NavLink to="/">
-            <Icons.Home sx={{ verticalAlign: 'middle' }} />
+            <Home sx={{ verticalAlign: 'middle' }} />
           </NavLink>
         </MenuItem>
         <MenuItem>
