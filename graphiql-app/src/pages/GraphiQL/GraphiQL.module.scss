@@ -4,6 +4,8 @@
   padding: 15px 0;
   position: relative;
   overflow-x: hidden;
+  margin-right: '50px';
+  overflow: hidden;
 }
 
 .editor-block {
@@ -81,6 +83,10 @@
       cursor: pointer;
     }
   }
+
+  &.opened {
+    height: 246px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -101,17 +107,18 @@
 }
 
 .textarea-block {
-  animation: slide-in 0.5s ease-out;
-  transform: translateX(0);
+  animation: slide-in 0.5s ease-out; 
+
 }
 
 @keyframes slide-in {
   0% {
-    opacity: 0;
-    transform: translateX(-100%);
+    height: 0;
+  }
+  50% {
+    height: 210px;
   }
   100% {
-    opacity: 1;
-    transform: translateX(0);
+    height: 200px;
   }
 }

@@ -45,6 +45,7 @@ function GraphiQL() {
   const [isError, setIsError] = useState(false);
   const { t } = useTranslation();
   const { isDark } = useThemeSwitcher();
+  const [firstOpened, setFirstOpened] = useState(true);
 
   useEffect(() => {
     loadSchemaFromServer(url);
@@ -88,6 +89,7 @@ function GraphiQL() {
 
   const [lastClicked, setLastClecked] = useState('');
   const lastClickedHandler = (valeu: string) => {
+    setFirstOpened(lastClicked ? false : true);
     setLastClecked(valeu);
   };
 
@@ -112,7 +114,13 @@ function GraphiQL() {
           </Box>
         </div>
         <Divider />
-        <div className={styles['tab-block']}>
+        <div
+          className={
+            tabValue && !firstOpened
+              ? `${styles['tab-block']} ${styles['opened']}`
+              : `${styles['tab-block']}`
+          }
+        >
           <div className={styles['tab-panel']}>
             <Tab
               value={lastClicked === 'vars'}
@@ -145,7 +153,7 @@ function GraphiQL() {
             )}
           </div>
           {tabValue === 'variables' && (
-            <div className={styles['textarea-block']}>
+            <div className={firstOpened ? styles['textarea-block'] : ''}>
               <Editor
                 query={variables}
                 onChangeHandler={(event) => dispatch(setVariables(event))}
@@ -153,10 +161,12 @@ function GraphiQL() {
             </div>
           )}
           {tabValue === 'headers' && (
-            <Editor
-              query={headers}
-              onChangeHandler={(event) => dispatch(setHeaders(event))}
-            ></Editor>
+            <div className={firstOpened ? styles['textarea-block'] : ''}>
+              <Editor
+                query={headers}
+                onChangeHandler={(event) => dispatch(setHeaders(event))}
+              ></Editor>
+            </div>
           )}
         </div>
       </div>
