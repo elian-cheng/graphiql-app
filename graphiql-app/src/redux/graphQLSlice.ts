@@ -9,7 +9,12 @@ export interface GraphQLState {
 }
 
 const initialState: GraphQLState = {
-  query: '',
+  query: `query {
+  characters(page: 2, filter: { name: "rick" }) {
+    info {
+      count
+    }
+}`,
   variables: '',
   headers: '',
   response: '',
