@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
