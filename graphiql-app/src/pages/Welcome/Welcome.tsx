@@ -3,6 +3,9 @@ import { useThemeSwitcher } from '../../contexts';
 import { AvatarCom } from './components';
 import { Trans, useTranslation } from 'react-i18next';
 import { Container, Link, Typography } from '@mui/material';
+import imageAvatar1 from '../../assets/images/avatar_1.png';
+import imageAvatar2 from '../../assets/images/avatar.jpg';
+import imageAvatar3 from '../../assets/images/avatar_2.jpg';
 
 import styles from './Welcome.module.scss';
 
@@ -12,12 +15,9 @@ function Welcome() {
 
   const developers = useMemo(
     () => [
-      {
-        avatar: 'src/assets/images/avatar_1.png',
-        name: 'Anubic29',
-      },
-      { avatar: 'src/assets/images/avatar.jpg', name: 'Elenadatso' },
-      { avatar: 'src/assets/images/avatar_2.jpg', name: 'Elian-cheng' },
+      { avatar: imageAvatar1, name: 'Anubic29' },
+      { avatar: imageAvatar2, name: 'Elenadatso' },
+      { avatar: imageAvatar3, name: 'Elian-cheng' },
     ],
     []
   );

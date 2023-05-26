@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useState, Suspense } from 'react';
 import type { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
@@ -180,8 +179,9 @@ function GraphiQL() {
             <CircularProgress />
           </div>
         ) : (
-          <>
+          <div className={styles['pre-block']}>
             <Typography
+              className={styles['response']}
               component={'pre'}
               sx={{
                 whiteSpace: 'pre-wrap',
@@ -190,7 +190,7 @@ function GraphiQL() {
             >
               {response}
             </Typography>
-          </>
+          </div>
         )}
       </div>
       {schema && (
