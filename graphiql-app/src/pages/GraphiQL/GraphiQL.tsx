@@ -117,7 +117,9 @@ function GraphiQL() {
         <Divider />
         <div
           className={
-            tabValue && !firstOpened ? `${styles['tab-block']} ${styles['opened']}` : `${styles['tab-block']}`
+            tabValue && !firstOpened
+              ? `${styles['tab-block']} ${styles['opened']}`
+              : `${styles['tab-block']}`
           }
         >
           <div className={styles['tab-panel']}>
