@@ -14,6 +14,7 @@ const initialState: GraphQLState = {
     info {
       count
     }
+  }
 }`,
   variables: '',
   headers: '',
