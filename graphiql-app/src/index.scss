@@ -19,18 +19,4 @@ a {
   --color-cyanText: #73cfc8;
   --BACKGR_GREY: #18191b;
 
-    ::-webkit-scrollbar-track {
-    background-color: #000;
-  }
-
-
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--color-cyanText);
-    border-radius: 5px;
-  }
-
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-cyan);
-  }
 }
